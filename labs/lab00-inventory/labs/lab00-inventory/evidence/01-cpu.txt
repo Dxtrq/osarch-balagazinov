@@ -1,8 +1,0 @@
-PS C:\Users\damir> Get-CimInstance Win32_Processor | Select-Object Name, NumberOfCores, NumberOfLogicalProcessors | Format-List
-
-Name                      : AMD Ryzen 5 7430U with Radeon Graphics
-NumberOfCores             : 6
-NumberOfLogicalProcessors : 12
-
-
-PS C:\Users\damir>
