@@ -1,1 +1,1 @@
-# osarch-balagazinov
+# lab 0 inventory
