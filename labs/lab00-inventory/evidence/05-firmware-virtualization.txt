@@ -1,0 +1,19 @@
+PS C:\Users\damir> $env:firmware_type
+UEFI
+
+PS C:\Users\damir> (Get-ComputerInfo -Property BiosFirmwareType).BiosFirmwareType
+Uefi
+
+PS C:\Users\damir> Get-CimInstance Win32_Processor | Select-Object Name, VirtualizationFirmwareEnabled, SecondLevelAddressTranslationExtensions, VMMonitorModeExtensions | Format-List
+
+Name                                    : AMD Ryzen 5 7430U with Radeon Graphics
+VirtualizationFirmwareEnabled           : True
+SecondLevelAddressTranslationExtensions : False
+VMMonitorModeExtensions                 : False
+
+PS C:\Users\damir> systeminfo | Select-String -Pattern "Hyper-V|Virtualization"
+
+Требования Hyper-V:                      Обнаружена низкоуровневая оболочка. Функции, необходимые для Hyper-V, отображены не будут.
+
+
+PS C:\Users\damir>
