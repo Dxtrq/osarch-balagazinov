@@ -1,0 +1,9 @@
+PS C:\Users\damir> Get-CimInstance Win32_PhysicalMemory | Select-Object BankLabel, @{n='GB';e={$_.Capacity/1GB}}, Speed, ConfiguredClockSpeed, Manufacturer | Format-Table
+
+BankLabel    GB Speed ConfiguredClockSpeed Manufacturer
+---------    -- ----- -------------------- ------------
+P0 CHANNEL A  8  3200                 3200 Wodposit
+P0 CHANNEL B  8  3200                 3200 Wodposit
+
+
+PS C:\Users\damir>
