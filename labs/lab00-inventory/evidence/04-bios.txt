@@ -1,0 +1,8 @@
+PS C:\Users\damir> Get-CimInstance Win32_BIOS | Select-Object Manufacturer, SMBIOSBIOSVersion, ReleaseDate | Format-List
+
+Manufacturer      : American Megatrends International, LLC.
+SMBIOSBIOSVersion : 1.17
+ReleaseDate       : 4/24/2025 5:00:00 AM
+
+
+PS C:\Users\damir>
