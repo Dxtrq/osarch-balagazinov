@@ -35,7 +35,7 @@ These assumptions shaped the entire build document.
 
 1. Checked the real resources of my host (16 GB RAM, 6 cores / 12 threads).
 2. Created two virtual machines in Oracle VirtualBox:
-   - `lab01-ubuntu` — Ubuntu Server 26.04, 2 vCPU, 4 GB RAM, 25 GB dynamic disk
+   - `lab01-ubuntu` — Ubuntu Server 26.04.1 LTS, 2 vCPU, 4 GB RAM, 25 GB dynamic disk
    - `lab02-windows` — Windows 11 Enterprise Evaluation, 2 vCPU, 4 GB RAM, 64 GB dynamic disk, UEFI + Secure Boot + TPM
 3. Put both machines on the same **NAT Network** so they can talk to each other and still reach the internet.
 4. Added a proper Windows Firewall rule that allows ping (ICMP) without disabling the firewall.
