@@ -65,7 +65,7 @@ NAT Network is the correct choice for this lab.
 
 | | Before (both VMs off) | After (both VMs 10 GB) |
 |---|---|---|
-| **Host RAM in use** | ~5.5 GB | 15.0 GB |
+| **Host RAM in use** | ~5.5 GB | 15.0 GB | 
 | **Available** | ~9.9 GB | 0.37 GB |
 | **Committed / Swap used** | ~12 GB | 30.1 / 31.2 GB |
 | **What I noticed** | — | Strong lag, mouse stuttering, windows freezing for several seconds. Host became almost unusable until one guest was shut down. |
