@@ -1,7 +1,6 @@
 # Lab 4 — Partition, mirror, fail, recover
 
-Pair: Balagazinov / (partner name)
-Driver first half: Balagazinov
+Pair: Damir Balagazinov (alone)
 Machine: Ubuntu Server guest (lab01) + Windows 11 guest
 Date: 15.11.2026
 
