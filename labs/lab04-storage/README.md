@@ -84,9 +84,9 @@ I had to quit with `q`, restart `fdisk /dev/sdd` and carefully follow the correc
 
 ## Evidence
 
-- `evidence/lsblk-before.txt` — disks before creating the array
-- `evidence/array-healthy.txt` — healthy RAID 1 (2/2)
-- `evidence/array-degraded.txt` — array after failing one disk
-- `evidence/checksum-before.txt` — checksum of the test file before failure
-- `evidence/checksum-after-failure.txt` — same checksum after failure (proves data survived)
-- `evidence/array-rebuilt.txt` — array after adding the third disk and rebuild finished
+- [evidence/lsblk-before.txt](evidence/lsblk-before.txt) — disks before creating the array
+- [evidence/array-healthy.txt](evidence/array-healthy.txt) — healthy RAID 1 (2/2)
+- [evidence/array-degraded.txt](evidence/array-degraded.txt) — array after failing one disk
+- [evidence/checksum-before.txt](evidence/checksum-before.txt) — checksum of the test file before failure
+- [evidence/checksum-after-failure.txt](evidence/checksum-after-failure.txt) — same checksum after failure
+- [evidence/array-rebuilt.txt](evidence/array-rebuilt.txt) — array after rebuild finished
