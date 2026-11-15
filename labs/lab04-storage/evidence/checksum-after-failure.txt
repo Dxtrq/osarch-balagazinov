@@ -1,0 +1,4 @@
+dxtra@lab01:~$ md5sum /mnt/raid/hello.txt > checksum-after-failure.txt
+dxtra@lab01:~$ cat checksum-after-failure.txt
+5074fe8fb229ad77cfcafee67054e1a7  /mnt/raid/hello.txt
+dxtra@lab01:~$
