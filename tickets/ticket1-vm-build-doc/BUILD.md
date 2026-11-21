@@ -266,6 +266,7 @@ The same from the command line ([evidence/build/step9-snapshot-list.txt](evidenc
 | Screen small, mouse jumps, copy-paste does not work | Guest Additions not installed (Windows) | Step 7, items 11–12. On Ubuntu Server there is no graphical clipboard — use `ssh` from the laptop instead. |
 | Snapshot "takes forever" / VM hangs while snapshotting | Snapshot of a **running** VM saves all its RAM to disk; closing the VM window during it aborts it | Shut the VM down first (step 9). If it hangs, wait for it to finish; do not close the window. |
 | Laptop very slow, C: almost full | VMs stored on a small C: drive | *File → Preferences → General → Default Machine Folder* to a bigger drive before creating VMs; move existing ones with *Machine → Move*. |
+| Ubuntu disk is smaller than planned (e.g. 19 GB instead of 25 GB) | A different size was typed in the *New VM* wizard | Power off → `VBoxManage modifymedium disk <file.vdi> --resize 25600` → in Ubuntu: `sudo growpart /dev/sda 3 && sudo pvresize /dev/sda3 && sudo lvextend -r -l +100%FREE /dev/ubuntu-vg/ubuntu-lv`. **If the VM has snapshots, resize every disk in the chain** (base `.vdi` and each `Snapshots/{…}.vdi`), otherwise the VM pauses with *BLKCACHE_IOERR* as soon as Linux writes past the old size. |
 | Windows nags "Your evaluation period has expired" | 90-day evaluation ended | Restore `clean-baseline` or rebuild from the ISO; or buy a Windows 11 Pro licence for the VM. |
 
 ---

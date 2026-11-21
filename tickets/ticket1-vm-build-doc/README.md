@@ -78,6 +78,8 @@ New-NetFirewallRule -DisplayName "Allow ping in (ICMPv4)" -Protocol ICMPv4 -Icmp
 
 After that the ping worked both ways (`evidence/05-ping-between-guests.txt`). The problem and the fix are now the first row of the troubleshooting table in BUILD.md, so Aigerim does not have to rediscover it.
 
+**A second problem, found on 21.11.2026:** my Ubuntu disk was **19 GB, not the 25 GB** this document specifies (`VBoxManage showmediuminfo` → Capacity 19456 MB) — a different number had been typed in the wizard, and inside Ubuntu only 10 GB of it was given to `/`. I resized the disk to 25 GB with `VBoxManage modifymedium --resize 25600` and grew the partition, LVM volume and ext4 inside the guest (`growpart`, `pvresize`, `lvextend -r`). The first attempt **paused the VM** with `BLKCACHE_IOERR`: I had resized only the current disk layer, while the two snapshot layers below it were still 19 GB, so every write beyond 19 GB failed. I saved the VM state, resized the other two layers, resumed the VM, and the resize finished cleanly (`/` is now 23 GB, no I/O errors in the kernel log). This is now a row in the troubleshooting table.
+
 ### Resource calculation (from my real host)
 
 | Resource | Host has | Given to Ubuntu | Given to Windows | Left for host |
