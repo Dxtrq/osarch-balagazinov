@@ -71,11 +71,11 @@ There is no "with CRLF line terminators" any more, `grep -c $'\r'` returns `0`, 
 The hex of the fixed file starts with the BOM `EF BB BF`, then `49 44 3B` (`ID;`), then `D0 A4` = **Ф** (first letter of `Фамилия`). The Kazakh letters are now two-byte UTF-8 sequences: **Ә = `D3 98`**, **Қ = `D2 9A`** (shown with `printf | xxd` at the end of evidence/file-after.txt).
 
 All names (including the Kazakh letters Ә, Қ, Ү, Ө, Ғ, Ұ, Ң, І) read correctly in:
-- Microsoft Excel — `staff-fixed.csv` opened by double-click
-- LibreOffice Calc — `staff-fixed.csv`, Character set: Unicode (UTF-8), separator `;`
-- `cat evidence/staff-fixed.csv` in the Linux terminal
+1. **Microsoft Excel** — `staff-fixed.csv` opened by double-click; title bar shows `staff-fixed.csv`. Excel detected UTF-8 because of the BOM. The rows stay in column A because Excel splits a double-clicked CSV on the Windows *list separator*, which is `,` in my regional settings — the file uses `;`. That is a separator setting, not an encoding problem: every name is readable. (Data → From Text/CSV with delimiter `;` splits it into columns.)
+2. **LibreOffice Calc** — `staff-fixed.csv`, Character set: Unicode (UTF-8), separator `;`; split into six columns.
+3. **Linux terminal** — Ubuntu guest `lab01`: the same file copied with `scp`, then `file staff-fixed.csv` → `UTF-8 (with BOM) text` and `cat staff-fixed.csv` (text copy: [evidence/cat-ubuntu.txt](evidence/cat-ubuntu.txt), 1509 bytes = same size as the repository file).
 
-→ see `evidence/opens-correctly.png` (each panel shows the application and the file name `staff-fixed.csv` in its title bar)
+→ see `evidence/opens-correctly.png` — the three screenshots stacked in one image, each with a caption; Excel and LibreOffice show the file name in the title bar.
 
 ## What did not work the first time
 
@@ -84,6 +84,8 @@ I first tried `iconv -f WINDOWS-1251`. Russian names looked almost correct, but 
 That forced me to look at the actual bytes of the Kazakh characters and test RK1048 / KZ-1048, which matched perfectly.
 
 Second problem: the line endings of the committed files did not match my evidence. Git on Windows has `core.autocrlf=true`, so on commit it silently stored `staff-broken.csv` with LF instead of the original CRLF, and the `staff-fixed.csv` I later uploaded through the GitHub web page was a different copy (with BOM and CRLF), not the output of my script. I fixed it by adding `.gitattributes` (`*.csv -text`, so Git never touches CSV bytes), regenerating `staff-fixed.csv` with `scripts/fix.sh` only, and re-running `file` / `xxd` / `cat -A` on the committed file. Lesson: verify the file that is actually in the repository, not a copy that was opened in an editor.
+
+Third: my first terminal check was `cat` in Git Bash on Windows. Some Kazakh letters (Қ, Ұ, Ғ) came out as broken glyphs even though the bytes were correct — the Git Bash font simply has no glyphs for them. A wrong font can look exactly like a wrong encoding, so I repeated the check in a real Linux terminal (Ubuntu over ssh), where all letters display correctly.
 
 ## Evidence
 
@@ -95,4 +97,5 @@ Second problem: the line endings of the committed files did not match my evidenc
 - [evidence/encoding-test-rk1048.txt](evidence/encoding-test-rk1048.txt) — proof that RK1048 decodes correctly
 - [evidence/first-attempt-wp1251.txt](evidence/first-attempt-wp1251.txt) — failed Windows-1251 attempt
 - [evidence/line-endings-after.txt](evidence/line-endings-after.txt) — `cat -A` and CR count: LF only after conversion
-- [evidence/opens-correctly.png](evidence/opens-correctly.png) — Excel + LibreOffice + terminal side by side
+- [evidence/opens-correctly.png](evidence/opens-correctly.png) — Excel + LibreOffice + Linux terminal, one captioned image
+- [evidence/cat-ubuntu.txt](evidence/cat-ubuntu.txt) — `file` + `cat` of the fixed file in the Ubuntu guest, as text
