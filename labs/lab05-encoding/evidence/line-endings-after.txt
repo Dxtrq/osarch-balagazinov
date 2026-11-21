@@ -1,4 +1,11 @@
-$ cat -A evidence/staff-fixed.csv | head -n 3
-ID;M-PM-$M-PM-0M-PM-<M-PM-8M-PM-;M-PM-8M-QM-^O;M-PM-^XM-PM-<M-QM-^O;M-PM-^^M-QM-^BM-PM-4M-PM-5M-PM-;;M-PM-^TM-PM->M-PM-;M-PM-6M-PM-=M-PM->M-QM-^AM-QM-^BM-QM-^L;M-PM-^SM-PM->M-QM-^@M-PM->M-PM-4$
+$ cat -A evidence/staff-fixed.csv | head -n 3    # lines end in $ (LF), no ^M (CR)
+M-oM-;M-?ID;M-PM-$M-PM-0M-PM-<M-PM-8M-PM-;M-PM-8M-QM-^O;M-PM-^XM-PM-<M-QM-^O;M-PM-^^M-QM-^BM-PM-4M-PM-5M-PM-;;M-PM-^TM-PM->M-PM-;M-PM-6M-PM-=M-PM->M-QM-^AM-QM-^BM-QM-^L;M-PM-^SM-PM->M-QM-^@M-PM->M-PM-4$
 101;M-SM-^XM-PM-1M-PM-4M-QM-^VM-QM-^@M-PM-0M-QM-^EM-PM-<M-PM-0M-PM-=M-PM->M-PM-2M-PM-0;M-PM-^PM-QM-^@M-QM-^CM-PM-6M-PM-0M-PM-=;M-PM-^QM-QM-^CM-QM-^EM-PM-3M-PM-0M-PM-;M-QM-^BM-PM-5M-QM-^@M-PM-8M-QM-^O;M-PM-^SM-PM-;M-PM-0M-PM-2M-PM-=M-QM-^KM-PM-9 M-PM-1M-QM-^CM-QM-^EM-PM-3M-PM-0M-PM-;M-QM-^BM-PM-5M-QM-^@;M-PM-^PM-PM-;M-PM-<M-PM-0M-QM-^BM-QM-^K$
 102;M-PM-^XM-PM-2M-PM-0M-PM-=M-PM->M-PM-2;M-PM-!M-PM-5M-QM-^@M-PM-3M-PM-5M-PM-9;M-PM-^XM-PM-"-M-PM->M-QM-^BM-PM-4M-PM-5M-PM-;;M-PM-!M-PM-8M-QM-^AM-QM-^BM-PM-5M-PM-<M-PM-=M-QM-^KM-PM-9 M-PM-0M-PM-4M-PM-<M-PM-8M-PM-=M-PM-8M-QM-^AM-QM-^BM-QM-^@M-PM-0M-QM-^BM-PM->M-QM-^@;M-PM-^PM-PM-;M-PM-<M-PM-0M-QM-^BM-QM-^K$
+
+$ grep -c $'\r' evidence/staff-fixed.csv
+0
+
+$ wc -l evidence/staff-fixed.csv
+16 evidence/staff-fixed.csv
+

@@ -1,0 +1,3 @@
+# keep CSV bytes exactly as produced (broken file = CRLF, fixed file = LF)
+*.csv -text
+*.sh text eol=lf

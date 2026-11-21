@@ -1,17 +1,33 @@
 $ sh scripts/fix.sh
 
 $ file evidence/staff-fixed.csv
-evidence/staff-fixed.csv: Unicode text, UTF-8 text
+evidence/staff-fixed.csv: Unicode text, UTF-8 (with BOM) text
 
 $ xxd evidence/staff-fixed.csv | head -n 4
-00000000: 4944 3bd0 a4d0 b0d0 bcd0 b8d0 bbd0 b8d1  ID;.............
-00000010: 8f3b d098 d0bc d18f 3bd0 9ed1 82d0 b4d0  .;......;.......
-00000020: b5d0 bb3b d094 d0be d0bb d0b6 d0bd d0be  ...;............
-00000030: d181 d182 d18c 3bd0 93d0 bed1 80d0 bed0  ......;.........
+00000000: efbb bf49 443b d0a4 d0b0 d0bc d0b8 d0bb  ...ID;..........
+00000010: d0b8 d18f 3bd0 98d0 bcd1 8f3b d09e d182  ....;......;....
+00000020: d0b4 d0b5 d0bb 3bd0 94d0 bed0 bbd0 b6d0  ......;.........
+00000030: bdd0 bed1 81d1 82d1 8c3b d093 d0be d180  .........;......
+
+$ head -c 3 evidence/staff-fixed.csv | xxd    # BOM check: EF BB BF
+00000000: efbb bf                                  ...
+
+$ grep -c $'\r' evidence/staff-fixed.csv    # lines that still contain CR (0 = pure LF)
+0
 
 $ head -n 5 evidence/staff-fixed.csv
-ID;Фамилия;Имя;Отдел;Должность;Город
+﻿ID;Фамилия;Имя;Отдел;Должность;Город
 101;Әбдірахманова;Аружан;Бухгалтерия;Главный бухгалтер;Алматы
 102;Иванов;Сергей;ИТ-отдел;Системный администратор;Алматы
 103;Қасымов;Нұрлан;Продажи;Менеджер по продажам;Астана
 104;Петрова;Елена;Отдел кадров;Специалист по кадрам;Алматы
+
+$ printf 'Ә' | xxd    # Kazakh Ә in UTF-8
+00000000: d398                                     ..
+
+$ printf 'Қ' | xxd    # Kazakh Қ in UTF-8
+00000000: d29a                                     ..
+
+$ printf 'Ф' | xxd    # Russian Ф (first letter of header 'Фамилия', bytes D0 A4 above)
+00000000: d0a4                                     ..
+
