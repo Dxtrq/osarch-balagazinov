@@ -1,0 +1,18 @@
+# Lab 6 - swap check before the experiment - 2026-11-21 13:29:51 UTC
+
+root@lab01:# swapon --show; free -h    # empty swapon output = no swap at all
+               total        used        free      shared  buff/cache   available
+Mem:           3.3Gi       464Mi       2.5Gi       1.1Mi       573Mi       2.9Gi
+Swap:             0B          0B          0B
+
+root@lab01:# fallocate -l 2G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile
+Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+no label, UUID=26698cee-0827-4109-aa7e-0e7ab5129294
+
+root@lab01:# swapon --show; free -h
+NAME      TYPE SIZE USED PRIO
+/swapfile file   2G   0B   -1
+               total        used        free      shared  buff/cache   available
+Mem:           3.3Gi       466Mi       2.5Gi       1.1Mi       573Mi       2.9Gi
+Swap:          2.0Gi          0B       2.0Gi
+

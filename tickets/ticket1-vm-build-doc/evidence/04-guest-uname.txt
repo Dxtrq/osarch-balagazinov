@@ -1,2 +1,9 @@
-dxtra@lab01:~$ uname -a
+dxtra@lab01:~$ uname -a; lsb_release -a     # typed in the lab01 console, 2026-11-21
+$ uname -a
 Linux lab01 7.0.0-38-generic #38-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 09:10:14 UTC 2026 x86_64 GNU/Linux
+
+$ lsb_release -a
+Distributor ID:	Ubuntu
+Description:	Ubuntu 26.04.1 LTS
+Release:	26.04
+Codename:	resolute

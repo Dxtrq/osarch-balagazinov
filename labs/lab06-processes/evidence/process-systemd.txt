@@ -1,0 +1,187 @@
+# Lab 6 - process facts for systemd (PID 1) on lab01 - 2026-11-21 13:29:51 UTC
+
+root@lab01:# ps -o pid,comm -p 1
+    PID COMMAND
+      1 systemd
+
+root@lab01:# ps -o pid,ppid,user,stat,nlwp,vsz,rss,%mem,%cpu,lstart,cmd -p 1
+    PID    PPID USER     STAT NLWP    VSZ   RSS %MEM %CPU                  STARTED CMD
+      1       0 root     Ss      1  25196 16444  0.4  0.2 Sat Nov 21 13:01:19 2026 /usr/lib/systemd/systemd --switched-root --system --deserialize=50
+
+root@lab01:# ps -o ppid= -p 1    # parent PID: 0 = no user-space parent, PID 1 is started by the kernel itself
+      0
+
+root@lab01:# grep -E '^(Name|State|PPid|Threads|VmPeak|VmSize|VmRSS|RssAnon|RssFile|VmSwap)' /proc/1/status
+Name:	systemd
+State:	S (sleeping)
+PPid:	0
+VmPeak:	   25232 kB
+VmSize:	   25196 kB
+VmRSS:	   16444 kB
+RssAnon:	    4736 kB
+RssFile:	   11708 kB
+VmSwap:	       0 kB
+Threads:	1
+
+root@lab01:# ls /proc/1/fd | wc -l    # number of open file descriptors
+147
+
+root@lab01:# ls -l /proc/1/fd
+total 0
+lrwx------ 1 root root 64 Nov 21 13:01 0 -> /dev/null
+lrwx------ 1 root root 64 Nov 21 13:01 1 -> /dev/null
+lrwx------ 1 root root 64 Nov 21 13:01 10 -> anon_inode:bpf-prog
+lrwx------ 1 root root 64 Nov 21 13:29 100 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 101 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:29 102 -> socket:[13547]
+lrwx------+1 root root 64 Nov 21 13:29 103 -> socket:[13295]
+lrwx------+1 root root 64 Nov 21 13:29 104 -> socket:[13546]
+lrwx------+1 root root 64 Nov 21 13:29 105 -> socket:[13298]
+lrwx------+1 root root 64 Nov 21 13:29 106 -> socket:[13299]
+lrwx------+1 root root 64 Nov 21 13:29 107 -> socket:[13300]
+lrwx------ 1 root root 64 Nov 21 13:01 108 -> anon_inode:[pidfd]
+lr-x------ 1 root root 64 Nov 21 13:29 11 -> anon_inode:inotify
+lrwx------ 1 root root 64 Nov 21 13:29 110 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:29 111 -> socket:[13767]
+lrwx------ 1 root root 64 Nov 21 13:29 112 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:29 113 -> socket:[13824]
+lrwx------ 1 root root 64 Nov 21 13:29 114 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 116 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 117 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 118 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:01 12 -> socket:[7254]
+lrwx------+1 root root 64 Nov 21 13:29 120 -> socket:[13970]
+lrwx------ 1 root root 64 Nov 21 13:29 121 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:29 122 -> socket:[15002]
+lrwx------ 1 root root 64 Nov 21 13:29 123 -> anon_inode:bpf-prog
+lrwx------+1 root root 64 Nov 21 13:29 124 -> socket:[14381]
+lrwx------ 1 root root 64 Nov 21 13:29 125 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:29 126 -> socket:[14055]
+lrwx------+1 root root 64 Nov 21 13:29 127 -> socket:[14382]
+lrwx------ 1 root root 64 Nov 21 13:29 128 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 129 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:01 13 -> anon_inode:[eventpoll]
+lrwx------ 1 root root 64 Nov 21 13:29 130 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:29 131 -> socket:[14133]
+lrwx------ 1 root root 64 Nov 21 13:29 132 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 133 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 134 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 135 -> anon_inode:bpf-prog
+lrwx------ 1 root root 64 Nov 21 13:29 136 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 137 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 138 -> anon_inode:bpf-prog
+lr-x------ 1 root root 64 Nov 21 13:29 14 -> /proc/1/mountinfo
+lrwx------ 1 root root 64 Nov 21 13:29 140 -> anon_inode:bpf-prog
+lrwx------ 1 root root 64 Nov 21 13:29 141 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:29 142 -> socket:[14236]
+lrwx------ 1 root root 64 Nov 21 13:29 143 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:29 144 -> socket:[13825]
+lrwx------ 1 root root 64 Nov 21 13:29 145 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:29 147 -> socket:[14353]
+lrwx------ 1 root root 64 Nov 21 13:29 149 -> anon_inode:[pidfd]
+lr-x------ 1 root root 64 Nov 21 13:29 15 -> anon_inode:inotify
+lrwx------+1 root root 64 Nov 21 13:29 150 -> socket:[13849]
+lrwx------ 1 root root 64 Nov 21 13:29 152 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 153 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 154 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:29 155 -> socket:[13690]
+lrwx------+1 root root 64 Nov 21 13:29 156 -> socket:[13738]
+lrwx------ 1 root root 64 Nov 21 13:29 159 -> anon_inode:[pidfd]
+lr-x------ 1 root root 64 Nov 21 13:29 16 -> /proc/swaps
+lrwx------ 1 root root 64 Nov 21 13:29 160 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:01 17 -> socket:[6433]
+lrwx------+1 root root 64 Nov 21 13:29 18 -> socket:[7243]
+lrwx------+1 root root 64 Nov 21 13:01 19 -> socket:[7244]
+lrwx------ 1 root root 64 Nov 21 13:01 2 -> /dev/null
+lrwx------+1 root root 64 Nov 21 13:01 20 -> socket:[7245]
+lrwx------+1 root root 64 Nov 21 13:29 21 -> socket:[7246]
+lrwx------+1 root root 64 Nov 21 13:29 22 -> socket:[7247]
+lrwx------+1 root root 64 Nov 21 13:29 23 -> socket:[7248]
+lrwx------ 1 root root 64 Nov 21 13:29 24 -> anon_inode:[pidfd]
+lr-x------ 1 root root 64 Nov 21 13:29 25 -> anon_inode:inotify
+lrwx------ 1 root root 64 Nov 21 13:29 26 -> anon_inode:[timerfd]
+lr-x------ 1 root root 64 Nov 21 13:01 27 -> /dev/autofs
+l-wx------ 1 root root 64 Nov 21 13:01 3 -> /dev/kmsg
+lrwx------ 1 root root 64 Nov 21 13:29 32 -> /sys/fs/cgroup/init.scope/memory.pressure
+lr-x------ 1 root root 64 Nov 21 13:29 33 -> pipe:[7264]
+lrwx------ 1 root root 64 Nov 21 13:29 34 -> /run/dmeventd-server
+lrwx------ 1 root root 64 Nov 21 13:01 35 -> /run/dmeventd-client
+lrwx------ 1 root root 64 Nov 21 13:29 36 -> anon_inode:bpf-prog
+lrwx------+1 root root 64 Nov 21 13:29 37 -> socket:[7267]
+lrwx------+1 root root 64 Nov 21 13:29 38 -> socket:[7268]
+lrwx------+1 root root 64 Nov 21 13:29 39 -> socket:[7269]
+lrwx------ 1 root root 64 Nov 21 13:01 4 -> anon_inode:[eventpoll]
+lrwx------+1 root root 64 Nov 21 13:29 40 -> socket:[7270]
+lrwx------+1 root root 64 Nov 21 13:29 41 -> socket:[7271]
+lrwx------+1 root root 64 Nov 21 13:29 42 -> socket:[7272]
+lrwx------+1 root root 64 Nov 21 13:29 43 -> socket:[7273]
+lrwx------+1 root root 64 Nov 21 13:29 44 -> socket:[7274]
+lrwx------+1 root root 64 Nov 21 13:29 45 -> socket:[7275]
+lrwx------+1 root root 64 Nov 21 13:29 46 -> socket:[7276]
+lrwx------+1 root root 64 Nov 21 13:29 47 -> socket:[7277]
+lrwx------+1 root root 64 Nov 21 13:29 48 -> socket:[7278]
+lrwx------ 1 root root 64 Nov 21 13:29 49 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:01 5 -> anon_inode:[signalfd]
+lr-x------ 1 root root 64 Nov 21 13:01 50 -> anon_inode:inotify
+lrwx------ 1 root root 64 Nov 21 13:29 51 -> anon_inode:bpf-prog
+lrwx------ 1 root root 64 Nov 21 13:29 52 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:01 53 -> anon_inode:bpf-prog
+lrwx------+1 root root 64 Nov 21 13:01 54 -> socket:[4056]
+lrwx------+1 root root 64 Nov 21 13:01 55 -> socket:[4057]
+lrwx------ 1 root root 64 Nov 21 13:01 56 -> anon_inode:bpf-prog
+lrwx------+1 root root 64 Nov 21 13:01 57 -> socket:[4058]
+lrwx------+1 root root 64 Nov 21 13:01 58 -> socket:[4059]
+lrwx------+1 root root 64 Nov 21 13:01 59 -> socket:[4060]
+l--------- 1 root root 64 Nov 21 13:01 6 -> /sys/fs/cgroup
+lrwx------+1 root root 64 Nov 21 13:01 60 -> socket:[4066]
+lrwx------+1 root root 64 Nov 21 13:01 61 -> socket:[4065]
+lrwx------+1 root root 64 Nov 21 13:01 62 -> socket:[4064]
+lrwx------ 1 root root 64 Nov 21 13:01 63 -> anon_inode:bpf-prog
+lrwx------+1 root root 64 Nov 21 13:01 64 -> socket:[7537]
+lrwx------ 1 root root 64 Nov 21 13:01 65 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:01 66 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:01 67 -> socket:[6759]
+lrwx------+1 root root 64 Nov 21 13:01 68 -> socket:[9760]
+lrwx------+1 root root 64 Nov 21 13:01 69 -> socket:[593]
+lr-x------ 1 root root 64 Nov 21 13:01 7 -> anon_inode:inotify
+lrwx------+1 root root 64 Nov 21 13:01 70 -> socket:[594]
+lrwx------+1 root root 64 Nov 21 13:01 71 -> socket:[592]
+lrwx------+1 root root 64 Nov 21 13:01 72 -> socket:[598]
+lrwx------ 1 root root 64 Nov 21 13:01 73 -> /memfd:systemd-udevd (deleted)
+lr-x------ 1 root root 64 Nov 21 13:01 74 -> anon_inode:inotify
+lrwx------ 1 root root 64 Nov 21 13:01 75 -> anon_inode:[timerfd]
+lrwx------ 1 root root 64 Nov 21 13:01 76 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:01 77 -> socket:[6664]
+lrwx------+1 root root 64 Nov 21 13:01 78 -> /dev/rfkill
+lrwx------ 1 root root 64 Nov 21 13:29 79 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 8 -> anon_inode:[timerfd]
+lrwx------+1 root root 64 Nov 21 13:01 80 -> socket:[8876]
+lrwx------+1 root root 64 Nov 21 13:29 81 -> socket:[11415]
+lrwx------ 1 root root 64 Nov 21 13:29 82 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 83 -> anon_inode:bpf-prog
+lrwx------ 1 root root 64 Nov 21 13:29 84 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:01 85 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:01 86 -> socket:[10541]
+lrwx------ 1 root root 64 Nov 21 13:29 87 -> anon_inode:[pidfd]
+lrwx------ 1 root root 64 Nov 21 13:29 88 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:01 89 -> socket:[13279]
+l--------- 1 root root 64 Nov 21 13:01 9 -> /usr/lib/systemd/systemd-executor
+lrwx------+1 root root 64 Nov 21 13:01 90 -> socket:[13285]
+lrwx------+1 root root 64 Nov 21 13:01 91 -> socket:[13286]
+lrwx------ 1 root root 64 Nov 21 13:01 93 -> anon_inode:bpf-prog
+lrwx------+1 root root 64 Nov 21 13:29 94 -> socket:[13288]
+lrwx------+1 root root 64 Nov 21 13:29 95 -> socket:[13289]
+lrwx------+1 root root 64 Nov 21 13:01 96 -> socket:[7377]
+lrwx------ 1 root root 64 Nov 21 13:29 97 -> anon_inode:[pidfd]
+lrwx------+1 root root 64 Nov 21 13:01 98 -> socket:[13290]
+lrwx------+1 root root 64 Nov 21 13:29 99 -> socket:[13291]
+
+root@lab01:# grep -E '^(Rss|Pss|Shared_Clean|Shared_Dirty|Private_Clean|Private_Dirty|Swap):' /proc/1/smaps_rollup
+Rss:               16444 kB
+Pss:                7202 kB
+Shared_Clean:      11564 kB
+Shared_Dirty:          0 kB
+Private_Clean:       144 kB
+Private_Dirty:      4736 kB
+Swap:                  0 kB
+

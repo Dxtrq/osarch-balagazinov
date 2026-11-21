@@ -1,0 +1,66 @@
+# Lab 6 - kernel log extract, boot of 2026-11-21 13:01:19 - 2026-11-21 13:30:45 UTC
+
+root@lab01:# journalctl -k -b --no-pager | grep -i -E 'out of memory|oom|killed process' 
+Nov 21 13:30:40 lab01 kernel: python3 invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Nov 21 13:30:40 lab01 kernel:  oom_kill_process.cold+0x8/0xac
+Nov 21 13:30:40 lab01 kernel:  __alloc_pages_may_oom+0x10a/0x1d0
+Nov 21 13:30:40 lab01 kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Nov 21 13:30:40 lab01 kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/session-1.scope,task=python3,pid=1744,uid=0
+Nov 21 13:30:40 lab01 kernel: Out of memory: Killed process 1744 (python3) total-vm:5343696kB, anon-rss:3163812kB, file-rss:2400kB, shmem-rss:0kB, UID:0 pgtables:10300kB oom_score_adj:0
+
+root@lab01:# journalctl -k -b --no-pager | grep -A 45 'invoked oom-killer' | head -n 90    # full OOM report
+Nov 21 13:30:40 lab01 kernel: python3 invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Nov 21 13:30:40 lab01 kernel: CPU: 0 UID: 0 PID: 1744 Comm: python3 Not tainted 7.0.0-38-generic #38-Ubuntu PREEMPT(lazy) 
+Nov 21 13:30:40 lab01 kernel: Hardware name: innotek GmbH VirtualBox/VirtualBox, BIOS VirtualBox 12/01/2006
+Nov 21 13:30:40 lab01 kernel: Call Trace:
+Nov 21 13:30:40 lab01 kernel:  <TASK>
+Nov 21 13:30:40 lab01 kernel:  show_stack+0x49/0x60
+Nov 21 13:30:40 lab01 kernel:  dump_stack_lvl+0x5f/0x90
+Nov 21 13:30:40 lab01 kernel:  dump_stack+0x10/0x18
+Nov 21 13:30:40 lab01 kernel:  dump_header+0x48/0x1c7
+Nov 21 13:30:40 lab01 kernel:  oom_kill_process.cold+0x8/0xac
+Nov 21 13:30:40 lab01 kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 21 13:30:40 lab01 kernel:  out_of_memory+0xff/0x2b0
+Nov 21 13:30:40 lab01 kernel:  __alloc_pages_may_oom+0x10a/0x1d0
+Nov 21 13:30:40 lab01 kernel:  __alloc_pages_slowpath.constprop.0+0x3e0/0x9b0
+Nov 21 13:30:40 lab01 kernel:  __alloc_frozen_pages_noprof+0x327/0x360
+Nov 21 13:30:40 lab01 kernel:  alloc_pages_mpol+0x88/0x1b0
+Nov 21 13:30:40 lab01 kernel:  alloc_pages_noprof+0x59/0xe0
+Nov 21 13:30:40 lab01 kernel:  ? lruvec_stat_mod_folio+0x8d/0x100
+Nov 21 13:30:40 lab01 kernel:  pte_alloc_one+0x1d/0x80
+Nov 21 13:30:40 lab01 kernel:  __pte_alloc+0x28/0xd0
+Nov 21 13:30:40 lab01 kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 21 13:30:40 lab01 kernel:  do_anonymous_page+0x2d6/0x4d0
+Nov 21 13:30:40 lab01 kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 21 13:30:40 lab01 kernel:  handle_pte_fault+0x1cb/0x1f0
+Nov 21 13:30:40 lab01 kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 21 13:30:40 lab01 kernel:  ? vbg_heartbeat_timer+0x30/0x40 [vboxguest]
+Nov 21 13:30:40 lab01 kernel:  __handle_mm_fault+0x493/0x720
+Nov 21 13:30:40 lab01 kernel:  handle_mm_fault+0xee/0x2e0
+Nov 21 13:30:40 lab01 kernel:  do_user_addr_fault+0x2ee/0x830
+Nov 21 13:30:40 lab01 kernel:  exc_page_fault+0x83/0x1e0
+Nov 21 13:30:40 lab01 kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
+Nov 21 13:30:40 lab01 kernel:  asm_exc_page_fault+0x27/0x30
+Nov 21 13:30:40 lab01 kernel: RIP: 0033:0x7e1092f9855e
+Nov 21 13:30:40 lab01 kernel: Code: 88 77 01 40 88 74 17 ff c3 0f 1f 00 c5 fe 7f 07 48 8d 54 17 80 48 83 cf 1f 48 ff c7 c5 fd e7 07 c5 fd e7 47 20 c5 fd e7 47 40 <c5> fd e7 47 60 48 83 ef 80 48 39 d7 72 e4 0f ae f8 c5 fe 7f 02 c5
+Nov 21 13:30:40 lab01 kernel: RSP: 002b:00007ffea00d2fe8 EFLAGS: 00010283
+Nov 21 13:30:40 lab01 kernel: RAX: 00007e0f4d8cc010 RBX: 00007e10929b9a30 RCX: 00007e1093012180
+Nov 21 13:30:40 lab01 kernel: RDX: 00007e0f53ccbf90 RSI: 0000000000000000 RDI: 00007e0f4dbfffa0
+Nov 21 13:30:40 lab01 kernel: RBP: 00007ffea00d30d0 R08: 0000000000b2a6e0 R09: 0000000000000000
+Nov 21 13:30:40 lab01 kernel: R10: 0000000000000022 R11: 0000000000000246 R12: 0000000000a96900
+Nov 21 13:30:40 lab01 kernel: R13: 0000000000000000 R14: 00007e10929b9a30 R15: 00007e1092919a80
+Nov 21 13:30:40 lab01 kernel:  </TASK>
+Nov 21 13:30:40 lab01 kernel: Mem-Info:
+Nov 21 13:30:40 lab01 kernel: active_anon:174309 inactive_anon:632633 isolated_anon:0
+                               active_file:240 inactive_file:571 isolated_file:0
+                               unevictable:2422 dirty:0 writeback:0
+                               slab_reclaimable:3495 slab_unreclaimable:11521
+
+root@lab01:# dmesg -T | grep -i -E 'oom|killed process' | tail -n 20
+[Sat Nov 21 13:30:40 2026] python3 invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+[Sat Nov 21 13:30:40 2026]  oom_kill_process.cold+0x8/0xac
+[Sat Nov 21 13:30:40 2026]  __alloc_pages_may_oom+0x10a/0x1d0
+[Sat Nov 21 13:30:40 2026] [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+[Sat Nov 21 13:30:40 2026] oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/session-1.scope,task=python3,pid=1744,uid=0
+[Sat Nov 21 13:30:40 2026] Out of memory: Killed process 1744 (python3) total-vm:5343696kB, anon-rss:3163812kB, file-rss:2400kB, shmem-rss:0kB, UID:0 pgtables:10300kB oom_score_adj:0
+

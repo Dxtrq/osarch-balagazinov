@@ -1,213 +1,276 @@
 # How to build the test machines for a new developer
 
-These instructions create two virtual machines:
+These instructions create two virtual machines on one Windows laptop:
 
-* One **Ubuntu Server** (Linux)
-* One **Windows 11**
+* **lab01-ubuntu** — Ubuntu Server (Linux)
+* **lab02-windows** — Windows 11
 
-They can talk to each other and both have internet access.  
-A snapshot is included so the developer can break things and roll back.[cite: 4]
+They can talk to each other, both have internet access, and both have a snapshot so the developer can break things and roll back in one click.
 
-**Requirements:**
-* About **40–50 GB** of free disk space
-* Host laptop/PC with at least **8 GB RAM**
+**You need:**
+* A Windows laptop/PC with at least **16 GB RAM** (8 GB works with 2 GB per VM — see the table at the end) and virtualization enabled in BIOS/UEFI
+* About **100 GB of free disk space** on the drive where the VMs will live
+* About 2 hours (most of it is waiting for installations)
+
+Every step ends with a **Check** line. If the check does not match, stop and look at **Troubleshooting** at the end.
+
+> Screenshots: the VirtualBox windows are from my real build. The screens of the Ubuntu and Windows **installers** (steps 6 and 7) were captured on 21.11.2026 by repeating the installation in a temporary VM with exactly the same settings and the same ISO files.
 
 ---
 
 ## Step 1. Install VirtualBox
 
 1. Go to https://www.virtualbox.org/wiki/Downloads
-2. Download the version for **Windows hosts**.
-3. Install it with all default options.
-4. Restart the computer if the installer asks you to.
+2. Click **Windows hosts** and run the downloaded installer.
+3. Accept all default options; when Windows asks to install network drivers, click **Install**.
+4. Do **not** install the "Extension Pack".
 
-> **Why VirtualBox?**  
-> It is free, works on ordinary Windows laptops, and does not require a paid licence.  
-> *(VMware Workstation Player was also considered, but VirtualBox is simpler for this use case.)*
+![VirtualBox installed](evidence/build/step1-virtualbox-about.png)
+
+> **Why VirtualBox?** It is free for any use, including in a company (GPLv3), and runs on an ordinary Windows laptop. The Extension Pack is free only for personal/educational use — in an office it needs a paid licence, and we do not need it (it adds USB 3 and webcam pass-through).
+
+> **Check:** the Start menu has *Oracle VirtualBox*; *Help → About VirtualBox* shows a version 7.x.
+
+**Before creating any VM:** open **File → Preferences → General** and set **Default Machine Folder** to the drive with the most free space (for example `D:\VirtualBox VMs`). By default VirtualBox uses the C: drive; two VMs can grow to ~90 GB and fill it.
 
 ---
 
 ## Step 2. Download the two operating system images
 
-You need two ISO files:
+1. **Ubuntu Server 26.04 LTS** — https://ubuntu.com/download/server → *Download* (file `ubuntu-26.04.1-live-server-amd64.iso`, about 2.9 GB).
+2. **Windows 11 Enterprise Evaluation** — https://www.microsoft.com/en-us/evalcenter/download-windows-11-enterprise → fill in the short form → *ISO – Enterprise download 64-bit edition* (about 8 GB).
 
-1. **Ubuntu Server**  
-   Download the latest LTS version from:  
-   https://ubuntu.com/download/server
+Save both in your **Downloads** folder.
 
-2. **Windows 11 Enterprise Evaluation**  
-   Go to the Microsoft Evaluation Center, fill in the short form, and download the 64-bit ISO:  
-   https://www.microsoft.com/en-us/evalcenter/download-windows-11-enterprise
+![ISO files](evidence/build/step2-iso-files.png)
 
-Save both files in your **Downloads** folder. Do **not** put them inside any project folder.
+> **Why these two?** Ubuntu Server is free and is what most web servers run. The Windows Evaluation is a free, legal 90-day version for testing; after 90 days you roll back the snapshot or rebuild (see README, section 2 — licences).
+
+> **Check:** both `.iso` files are in Downloads and their sizes are about 2.9 GB and 8 GB. A file of a few MB means the download failed.
 
 ---
 
 ## Step 3. Create the Ubuntu virtual machine
 
 1. Open VirtualBox and click **New**.
-2. Name: `lab01-ubuntu`
-3. Type: **Linux** → **Ubuntu (64-bit)**
-4. Memory: **4096 MB**
-5. Processors: **2**
-6. Hard disk: **Create a virtual hard disk now** → **25 GB**, **dynamically allocated**
-7. Click **Finish**.
+2. Name: `lab01-ubuntu`; ISO Image: choose the Ubuntu ISO; tick **Skip Unattended Installation**.
+3. Memory: **4096 MB**, Processors: **2**.
+4. Hard disk: **Create a virtual hard disk now** → **25 GB**, leave **Pre-allocate Full Size** unticked.
+5. Click **Finish**.
 
-> **Why these numbers?**  
-> The host has 16 GB of RAM and 12 threads. Giving the guest 4 GB RAM and 2 vCPU leaves enough resources for the second guest and for Windows itself.
+![Ubuntu VM settings](evidence/build/step3-ubuntu-settings.png)
 
-![Ubuntu creation](evidence/01-new-vm-wizard.png)
+> **Why these numbers?** The host has 16 GB RAM and 12 threads. 4 GB / 2 vCPU per guest leaves 8 GB and 8 threads for the host, so the laptop does not slow down when both VMs run. 25 GB is enough for Ubuntu Server plus development tools; "dynamic" means the file on the host only grows when the guest actually writes data.
+
+> **Check:** `lab01-ubuntu` appears in the list on the left with *Ubuntu (64-bit)*, 4096 MB.
 
 ---
 
 ## Step 4. Create the Windows virtual machine
 
 1. Click **New** again.
-2. Name: `lab02-windows`
-3. Type: **Microsoft Windows** → **Windows 11 (64-bit)**
-4. Tick **Skip Unattended Installation**
-5. Memory: **4096 MB**
-6. Processors: **2**
-7. Hard disk: **64 GB**, **dynamically allocated** (do **not** tick *“Pre-allocate Full Size”*)
-8. Click **Finish**.
+2. Name: `lab02-windows`; ISO Image: choose the Windows ISO; Type **Microsoft Windows**, Version **Windows 11 (64-bit)**; tick **Skip Unattended Installation**.
 
-After creation, open **Settings → System** and check that:
-* **Enable EFI** is ticked
-* **TPM** is set to **v2.0**
-* **Secure Boot** is enabled
+   ![New VM wizard](evidence/01-new-vm-wizard.png)
 
-*These three options are required by Windows 11. Without them the installation will fail.*
+3. Memory: **4096 MB**, Processors: **2**.
+4. Hard disk: **64 GB**, **Pre-allocate Full Size** unticked.
 
-![Disk settings](evidence/02-disk-settings.png)
+   ![Disk settings](evidence/02-disk-settings.png)
+
+5. Click **Finish**. Then select the VM → **Settings → System** and check that **Enable EFI**, **Secure Boot** and **TPM v2.0** are on.
+
+   ![System settings: EFI, Secure Boot, TPM 2.0](evidence/build/step4-windows-system-settings.png)
+
+> **Why?** Windows 11 refuses to install without UEFI, Secure Boot and TPM 2.0 ("This PC can't run Windows 11"). VirtualBox sets them automatically for "Windows 11 (64-bit)", but if you picked another version they are off. 64 GB is Microsoft's minimum for Windows 11.
+
+> **Check:** in *Settings → System* the three options are on; in *Settings → Storage* the disk is 64 GB.
 
 ---
 
 ## Step 5. Put both machines on the same network
 
-1. In VirtualBox go to **File → Tools → Network Manager**.
-2. Open the **NAT Networks** tab.
-3. Create a new network (name it `NatNetwork` if it does not exist). Make sure **DHCP** is enabled.
-4. For **each** virtual machine:
-   * Open **Settings → Network**
-   * Adapter 1 → Attached to: **NAT Network**
-   * Name: **NatNetwork**
+1. **File → Tools → Network Manager** → tab **NAT Networks** → **Create**. Name it `NatNetwork`, IPv4 prefix `10.0.2.0/24`, **Enable DHCP** ticked → **Apply**.
 
-> **Why NAT Network and not ordinary NAT?**  
-> Ordinary NAT gives each machine its own private network, so they cannot see each other. NAT Network puts them on the same internal network while still giving them internet access.
+   ![NAT Network](evidence/build/step5-nat-network.png)
 
-![Network adapter](evidence/03-network-adapter.png)
+2. For **each** VM: **Settings → Network → Adapter 1 → Attached to: NAT Network**, Name: **NatNetwork** → **OK**.
+
+   ![Network adapter](evidence/03-network-adapter.png)
+
+> **Why NAT Network and not ordinary NAT?** Ordinary NAT gives each VM its own private network, so the two VMs cannot see each other. NAT Network puts them on one shared private network that still has internet access through the laptop, and keeps them invisible to the office network. Bridged would put them directly on the office network — not wanted for a test machine.
+
+> **Check:** both VMs show *NAT Network 'NatNetwork'* under *Network* on their summary page.
 
 ---
 
 ## Step 6. Install Ubuntu Server
 
-1. Start `lab01-ubuntu`.
-2. When asked, select the Ubuntu Server ISO.
-3. Choose language → **English**.
-4. On the “Keyboard configuration” screen, press **Enter**.
-5. On the network screen, leave the defaults (DHCP) and continue.
-6. On the “Guided storage configuration” screen, leave the defaults and continue.
-7. Confirm the destructive action (this is a virtual disk, it is safe).
-8. Set a username and password (remember them).
-9. When asked about **SSH**, tick **Install OpenSSH server**.
-10. Skip any additional snaps.
-11. Wait for installation to finish, then select **Reboot Now**.
-12. After reboot, log in with the credentials you created.
+Select `lab01-ubuntu` → **Start**. The installer is keyboard-only: arrows to move, **Space** to tick, **Enter** to confirm, **Tab** to jump to *Done*.
 
-Verify the system:
+| # | Screen | What to do | Why |
+|---|---|---|---|
+| 1 | Language | **English** → Enter | Error messages in English are easier to search for. |
+| 2 | Keyboard configuration | leave **English (US)** → *Done* | Other layouts can be added later; US avoids wrong symbols in commands. |
+| 3 | Type of installation | **Ubuntu Server** (not minimized) → *Done* | Minimized has no editor, no man pages — painful for a developer. |
+| 4 | Network | leave the DHCP address (10.0.2.x) → *Done* | Proves the NAT Network works *before* installing. |
+| 5 | Proxy | leave empty → *Done* | No proxy in this office. |
+| 6 | Mirror | leave the default (`kz.archive.ubuntu.com`) → wait for "passed tests" → *Done* | Kazakhstan mirror is fastest. |
+| 7 | Guided storage | **Use an entire disk**, **Set up this disk as an LVM group** → *Done* | LVM lets the disk be extended later without reinstalling. |
+| 8 | Storage summary | → *Done* | Shows `/` and `/boot` on the 25 GB virtual disk. |
+| 9 | Confirm destructive action | **Continue** | It erases only the *virtual* disk — the laptop's files are not touched. |
+| 10 | Profile | your name, server name `lab01`, username, password → *Done* | Write the password down — it is needed for `sudo`. |
+| 11 | Ubuntu Pro | **Skip for now** → *Continue* | Not needed on a test VM. |
+| 12 | SSH configuration | tick **Install OpenSSH server** (Space) → *Done* | Lets the developer connect from the laptop's terminal, where copy-paste works. |
+| 13 | Featured server snaps | tick nothing → *Done* | Install only what is needed, later. |
+| 14 | Installing system | wait (10–15 min) → **Reboot Now** | Press Enter if asked to remove the installation medium. |
+
+Screens 1–14 in order:
+
+![1 language](evidence/build/step6-ubuntu-01-language.png)
+![2 keyboard](evidence/build/step6-ubuntu-02-keyboard.png)
+![3 install type](evidence/build/step6-ubuntu-03-install-type.png)
+![4 network](evidence/build/step6-ubuntu-04-network.png)
+![5 proxy](evidence/build/step6-ubuntu-05-proxy.png)
+![6 mirror](evidence/build/step6-ubuntu-06-mirror.png)
+![7 storage](evidence/build/step6-ubuntu-07-storage.png)
+![8 storage summary](evidence/build/step6-ubuntu-08-storage-summary.png)
+![9 confirm](evidence/build/step6-ubuntu-09-confirm.png)
+![10 profile](evidence/build/step6-ubuntu-10-profile.png)
+![11 Ubuntu Pro](evidence/build/step6-ubuntu-11-ubuntu-pro.png)
+![12 SSH](evidence/build/step6-ubuntu-12-ssh.png)
+![13 snaps](evidence/build/step6-ubuntu-13-snaps.png)
+![14 installing](evidence/build/step6-ubuntu-14-installing.png)
+
+After the reboot, log in and run:
 
 ```bash
 uname -a
 lsb_release -a
 ```
 
-*(You should see Ubuntu and the kernel version.)*[cite: 1]
+> **Check:** `lsb_release -a` prints `Ubuntu 26.04.1 LTS` (my output: [04-guest-uname.txt](evidence/04-guest-uname.txt)).
 
 ---
 
 ## Step 7. Install Windows 11
 
-1. Start `lab02-windows`.[cite: 1]
-2. Immediately press any key when you see *“Press any key to boot from CD or DVD…”*.[cite: 1]
-3. Choose language and keyboard → **Next**.[cite: 1]
-4. Click **I don't have a product key**.[cite: 1]
-5. Select **Windows 11 Enterprise Evaluation**.[cite: 1]
-6. Accept the licence terms.[cite: 1]
-7. Choose **Custom: Install Windows only**.[cite: 1]
-8. Select the virtual disk and click **Next**.[cite: 1]
-9. Wait for installation and several reboots.[cite: 1]
-10. When asked to sign in with a Microsoft account, choose **Domain join instead** (or *“Offline account”*).[cite: 1]
-11. Create a local username and password.[cite: 1]
-12. Skip privacy options as much as possible.[cite: 1]
-13. After the desktop appears, install **Guest Additions**:[cite: 1]
-    * In the VirtualBox menu: **Devices → Insert Guest Additions CD image**[cite: 1]
-    * Run the installer inside Windows and reboot when finished.[cite: 1]
+Select `lab02-windows` → **Start**. When you see *"Press any key to boot from CD or DVD…"*, press a key **immediately** (you have ~5 seconds; if you miss it, close the window → *Power off*, and start again).
+
+| # | Screen | What to do | Why |
+|---|---|---|---|
+| 1 | Select language settings | English (United States) → **Next** | |
+| 2 | Select keyboard settings | **US** → **Next** | Add Russian/Kazakh later in Settings. |
+| 3 | Select setup option | **Install Windows 11**, tick **I agree everything will be deleted…** → **Next** | Only the empty virtual disk is affected. |
+| 4 | License terms | **Accept** | Evaluation licence: free for 90 days, for testing. |
+| 5 | Select location | **Disk 0 Unallocated Space 64.0 GB** → **Next** | Windows creates its own partitions on the empty disk. |
+| 6 | Ready to install | check it says *Windows 11 Enterprise Evaluation* → **Install** | If you see "This PC can't run Windows 11" instead, go back to step 4 (EFI/TPM/Secure Boot). |
+| 7 | Installing Windows 11 | wait; the VM restarts several times (20–30 min) | **Do not** press a key at "Press any key to boot from CD" after these restarts — it would start the installer again. |
+
+![1 language](evidence/build/step7-windows-01-language.png)
+![2 keyboard](evidence/build/step7-windows-02-keyboard.png)
+![3 setup option](evidence/build/step7-windows-03-setup-option.png)
+![4 licence](evidence/build/step7-windows-04-license.png)
+![5 disk](evidence/build/step7-windows-05-disk.png)
+![6 ready](evidence/build/step7-windows-06-ready.png)
+![7 installing](evidence/build/step7-windows-07-installing.png)
+
+After the restarts (first-start setup):
+
+8. Region **Kazakhstan**, keyboard **US** (add a second layout if you like).
+9. When asked to sign in with a Microsoft account, choose **Sign-in options → Domain join instead** and create a **local** user with a password. *Why:* a test VM should not be tied to anyone's personal Microsoft account.
+10. Turn off all the privacy toggles → **Accept**.
+11. When the desktop appears: VirtualBox menu **Devices → Insert Guest Additions CD image**, open the CD in File Explorer, run `VBoxWindowsAdditions.exe`, accept defaults, **Reboot**. *Why:* without Guest Additions the screen is small, the mouse lags and copy-paste between laptop and VM does not work.
+12. Turn on the shared clipboard: VirtualBox menu **Devices → Shared Clipboard → Bidirectional**.
+
+> **Check:** after the reboot the Windows screen resizes when you resize the VM window, and text copied on the laptop can be pasted in the VM.
 
 ---
 
 ## Step 8. Check that everything works
 
-### On Ubuntu[cite: 2, 3]
+### Allow ping on Windows first
 
-```bash
-ip -br a
-ping -c 4 10.0.2.4    # should reach Windows
-ping -c 4 ubuntu.com  # should reach the internet
-```
-[cite: 2, 3]
-
-### On Windows (PowerShell)[cite: 2, 3]
+Windows blocks incoming ping by default, so the test from Ubuntu to Windows fails without this. In Windows, open **PowerShell as Administrator** and run:
 
 ```powershell
-ipconfig
-ping 10.0.2.3         # should reach Ubuntu
-ping ubuntu.com       # should reach the internet
+New-NetFirewallRule -DisplayName "Allow ping in (ICMPv4)" -Protocol ICMPv4 -IcmpType 8 -Direction Inbound -Action Allow
 ```
-[cite: 2, 3]
 
-> **Firewall Troubleshooting:**  
-> If the ping from Ubuntu to Windows fails, open **PowerShell as Administrator** on Windows and run:[cite: 2, 3]
-> ```powershell
-> New-NetFirewallRule -DisplayName "Allow ping in (ICMPv4)" -Protocol ICMPv4 -IcmpType 8 -Direction Inbound -Action Allow
-> ```
-> Then try the ping again.[cite: 2, 3]
+*Why not just turn the firewall off?* Because the developer tests software on this VM — it should behave like a real, protected Windows machine. This rule opens only ping.
 
----
+### On Ubuntu
 
-## Step 9. Take a clean snapshot[cite: 4]
+```bash
+ip -br a              # note the 10.0.2.x address
+ping -c 4 10.0.2.4    # Windows address (from ipconfig below)
+ping -c 4 ubuntu.com  # internet
+```
 
-1. Completely shut down the Ubuntu machine (do not pause).[cite: 4]
-2. In VirtualBox, select `lab01-ubuntu`.[cite: 4]
-3. Click the **Snapshots** button (camera icon).[cite: 4]
-4. Click **Take**.[cite: 4]
-5. Name it exactly: `clean-install`[cite: 4]
-6. Click **OK**.[cite: 4]
+![Ubuntu ping](evidence/build/step8-ubuntu-ping.png)
 
-### How to roll back later[cite: 4]
+### On Windows (PowerShell)
 
-If the developer breaks the Ubuntu machine:[cite: 4]
+```powershell
+ipconfig              # note the 10.0.2.x address
+ping 10.0.2.3         # Ubuntu address
+ping ubuntu.com       # internet
+```
 
-1. Shut down the virtual machine.[cite: 4]
-2. Open the **Snapshots** view.[cite: 4]
-3. Select `clean-install`.[cite: 4]
-4. Click **Restore**.[cite: 4]
-5. Confirm.[cite: 4]
+![Windows ping](evidence/build/step8-windows-ping.png)
 
-*The machine will return to the exact state it was in when the snapshot was taken.*[cite: 4]
+> **Check:** all four pings show `0% packet loss` / `Lost = 0`. Your addresses may differ (10.0.2.4, 10.0.2.5…) — use the ones `ip -br a` and `ipconfig` show. My full output: [05-ping-between-guests.txt](evidence/05-ping-between-guests.txt).
 
 ---
 
-## Quick reference[cite: 4]
+## Step 9. Take a clean snapshot of each machine
 
-| Setting | Ubuntu | Windows 11 |
-| :--- | :--- | :--- |
-| **vCPU** | 2 | 2 |
-| **RAM** | 4 GB | 4 GB |
-| **Disk** | 25 GB dynamic | 64 GB dynamic |
-| **Network** | NAT Network | NAT Network |
-| **Firmware** | default | UEFI + Secure Boot + TPM 2.0 |
-| **Snapshot** | `clean-install` | — |
+Do this for **both** VMs, right after step 8:
 
-[cite: 4]
+1. Shut the VM down completely (Ubuntu: `sudo poweroff`; Windows: Start → Power → Shut down). *Why:* a snapshot of a switched-off VM is small and fast; a snapshot of a running VM also saves all its memory (4 GB) and can take many minutes.
+2. In VirtualBox select the VM → click the **☰ menu** next to its name → **Snapshots**.
+3. Click **Take**, name it `clean-install` (Ubuntu) or `clean-baseline` (Windows), add a description → **OK**.
 
-*That is everything needed to rebuild the test environment from scratch.*[cite: 4]
+![Ubuntu snapshot](evidence/06-snapshot-list.png)
+![Windows snapshot](evidence/build/step9-windows-snapshot.png)
+
+> **Check:** each VM's Snapshots list shows the snapshot and, below it, *Current State*.
+
+### How to roll back later
+
+1. Shut the VM down.
+2. Open **Snapshots**, select `clean-install` / `clean-baseline`.
+3. Click **Restore**, untick *Create a snapshot of the current machine state* (unless you want to keep the broken state), → **Restore**.
+
+*The VM returns to exactly the state it had when the snapshot was taken — everything installed or broken since then is gone.*
+
+---
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Ping Ubuntu → Windows fails, Windows → Ubuntu works | Windows Firewall blocks incoming ping | Run the `New-NetFirewallRule` command in step 8. Do not switch the firewall off. |
+| Ping between the VMs fails in both directions | One VM is on "NAT" instead of "NAT Network", or on a different NAT network | Step 5: both adapters → *NAT Network*, name *NatNetwork*. |
+| "This PC can't run Windows 11" | EFI / Secure Boot / TPM 2.0 off | Power off → *Settings → System* → turn on all three (step 4) → start again. |
+| "VT-x/AMD-V hardware acceleration is not available" | Virtualization is off in the laptop's BIOS/UEFI | Reboot the laptop into BIOS (F2/Del), enable *Intel VT-x* or *AMD SVM*, save. |
+| Windows VM shows "Press any key to boot from CD…" after installation and setup starts again | A key was pressed at that prompt after a restart | Close the window → *Power off*; *Settings → Storage* → remove the Windows ISO → start again. |
+| Screen small, mouse jumps, copy-paste does not work | Guest Additions not installed (Windows) | Step 7, items 11–12. On Ubuntu Server there is no graphical clipboard — use `ssh` from the laptop instead. |
+| Snapshot "takes forever" / VM hangs while snapshotting | Snapshot of a **running** VM saves all its RAM to disk; closing the VM window during it aborts it | Shut the VM down first (step 9). If it hangs, wait for it to finish; do not close the window. |
+| Laptop very slow, C: almost full | VMs stored on a small C: drive | *File → Preferences → General → Default Machine Folder* to a bigger drive before creating VMs; move existing ones with *Machine → Move*. |
+| Windows nags "Your evaluation period has expired" | 90-day evaluation ended | Restore `clean-baseline` or rebuild from the ISO; or buy a Windows 11 Pro licence for the VM. |
+
+---
+
+## Quick reference
+
+| Setting | Ubuntu | Windows 11 | On an 8 GB laptop |
+| :--- | :--- | :--- | :--- |
+| **vCPU** | 2 | 2 | 2 / 2 |
+| **RAM** | 4 GB | 4 GB | 2 GB / 4 GB, run one VM at a time |
+| **Disk** | 25 GB dynamic | 64 GB dynamic | same |
+| **Network** | NAT Network `NatNetwork` | NAT Network `NatNetwork` | same |
+| **Firmware** | default | UEFI + Secure Boot + TPM 2.0 | same |
+| **Snapshot** | `clean-install` | `clean-baseline` | same |
+
+*That is everything needed to rebuild the test environment from scratch.*
