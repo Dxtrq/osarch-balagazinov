@@ -1,0 +1,30 @@
+﻿# Lab 6 - memory pressure on LAB02-WINDOWS - 2026-11-21 18:52:08
+
+######## BEFORE ########
+18:52:08  RAM free  1,784 MB of 4,077 | commit used  2,020 of 5,485 MB | pagefile 1408 MB allocated, 3 MB used
+
+######## DURING - PowerShell allocates 100 MB blocks and touches every page ########
+allocated   500 MB | 18:52:10  RAM free  1,273 MB of 4,077 | commit used  2,528 of 5,485 MB | pagefile 1408 MB allocated, 3 MB used | 'dir C:\Windows' took 0.02 s
+allocated  1000 MB | 18:52:11  RAM free    810 MB of 4,077 | commit used  3,025 of 5,485 MB | pagefile 1408 MB allocated, 3 MB used | 'dir C:\Windows' took 0.01 s
+allocated  1500 MB | 18:52:12  RAM free    476 MB of 4,077 | commit used  3,526 of 5,485 MB | pagefile 1408 MB allocated, 3 MB used | 'dir C:\Windows' took 0.01 s
+allocated  2000 MB | 18:52:14  RAM free     23 MB of 4,077 | commit used  4,035 of 5,485 MB | pagefile 1408 MB allocated, 13 MB used | 'dir C:\Windows' took 0.01 s
+allocated  2500 MB | 18:52:18  RAM free    142 MB of 4,077 | commit used  4,553 of 5,485 MB | pagefile 1408 MB allocated, 16 MB used | 'dir C:\Windows' took 0.02 s
+allocated  3000 MB | 18:52:21  RAM free     73 MB of 4,077 | commit used  5,042 of 5,485 MB | pagefile 1408 MB allocated, 16 MB used | 'dir C:\Windows' took 0.02 s
+allocated  3500 MB | 18:52:23  RAM free     67 MB of 4,077 | commit used  5,556 of 6,048 MB | pagefile 1970 MB allocated, 16 MB used | 'dir C:\Windows' took 0.01 s
+allocated  4000 MB | 18:52:26  RAM free    121 MB of 4,077 | commit used  6,059 of 6,658 MB | pagefile 2580 MB allocated, 35 MB used | 'dir C:\Windows' took 0.00 s
+allocated  4500 MB | 18:52:28  RAM free     49 MB of 4,077 | commit used  6,565 of 7,344 MB | pagefile 3266 MB allocated, 40 MB used | 'dir C:\Windows' took 0.02 s
+allocated  5000 MB | 18:52:31  RAM free    113 MB of 4,077 | commit used  7,075 of 7,344 MB | pagefile 3266 MB allocated, 161 MB used | 'dir C:\Windows' took 0.00 s
+allocated  5500 MB | 18:52:33  RAM free    242 MB of 4,077 | commit used  7,578 of 8,093 MB | pagefile 4016 MB allocated, 161 MB used | 'dir C:\Windows' took 0.03 s
+allocated  6000 MB | 18:52:34  RAM free     21 MB of 4,077 | commit used  8,084 of 8,910 MB | pagefile 4832 MB allocated, 161 MB used | 'dir C:\Windows' took 0.00 s
+allocated  6500 MB | 18:52:38  RAM free    206 MB of 4,077 | commit used  8,600 of 8,910 MB | pagefile 4832 MB allocated, 161 MB used | 'dir C:\Windows' took 0.02 s
+allocated  7000 MB | 18:52:40  RAM free    659 MB of 4,077 | commit used  9,099 of 9,810 MB | pagefile 5732 MB allocated, 161 MB used | 'dir C:\Windows' took 0.01 s
+allocated  7500 MB | 18:52:41  RAM free    345 MB of 4,077 | commit used  9,601 of 10,807 MB | pagefile 6729 MB allocated, 225 MB used | 'dir C:\Windows' took 0.00 s
+allocated  8000 MB | 18:52:43  RAM free    196 MB of 4,077 | commit used 10,124 of 10,807 MB | pagefile 6729 MB allocated, 225 MB used | 'dir C:\Windows' took 0.00 s
+allocated  8500 MB | 18:52:45  RAM free    227 MB of 4,077 | commit used 10,617 of 11,836 MB | pagefile 7759 MB allocated, 225 MB used | 'dir C:\Windows' took 0.01 s
+allocated  9000 MB | 18:52:48  RAM free     99 MB of 4,077 | commit used 11,115 of 11,836 MB | pagefile 7759 MB allocated, 280 MB used | 'dir C:\Windows' took 0.01 s
+allocated  9500 MB | 18:52:51  RAM free    168 MB of 4,077 | commit used 11,640 of 11,900 MB | pagefile 7823 MB allocated, 280 MB used | 'dir C:\Windows' took 0.03 s
+allocation FAILED at 9900 MB: MethodInvocationException: Exception calling ".ctor" with "1" argument(s): "Exception of type 'System.OutOfMemoryException' was thrown."
+18:52:54  RAM free    327 MB of 4,077 | commit used 12,036 of 12,091 MB | pagefile 8014 MB allocated, 280 MB used
+
+######## AFTER (memory released) ########
+18:53:03  RAM free  2,994 MB of 4,077 | commit used  2,144 of 6,621 MB | pagefile 2543 MB allocated, 275 MB used

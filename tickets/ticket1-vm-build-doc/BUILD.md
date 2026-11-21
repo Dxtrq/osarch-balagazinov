@@ -37,16 +37,22 @@ Every step ends with a **Check** line. If the check does not match, stop and loo
 
 ## Step 2. Download the two operating system images
 
-1. **Ubuntu Server 26.04 LTS** — https://ubuntu.com/download/server → *Download* (file `ubuntu-26.04.1-live-server-amd64.iso`, about 2.9 GB).
-2. **Windows 11 Enterprise Evaluation** — https://www.microsoft.com/en-us/evalcenter/download-windows-11-enterprise → fill in the short form → *ISO – Enterprise download 64-bit edition* (about 8 GB).
+1. **Ubuntu Server 26.04 LTS** — https://ubuntu.com/download/server → *Download* (file `ubuntu-26.04.1-live-server-amd64.iso`, about 2.7 GB).
+2. **Windows 11 Enterprise Evaluation** — https://www.microsoft.com/en-us/evalcenter/download-windows-11-enterprise → fill in the short form → *ISO – Enterprise download 64-bit edition* (about 7.7 GB).
 
 Save both in your **Downloads** folder.
 
-![ISO files](evidence/build/step2-iso-files.png)
+My two files (full output with SHA-256 hashes: [evidence/build/step2-iso-files.txt](evidence/build/step2-iso-files.txt)):
+
+```
+Name                                                                                            SizeGB
+26300.9457.260913-1737.26h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso   7.66
+ubuntu-26.04.1-live-server-amd64.iso                                                              2.73
+```
 
 > **Why these two?** Ubuntu Server is free and is what most web servers run. The Windows Evaluation is a free, legal 90-day version for testing; after 90 days you roll back the snapshot or rebuild (see README, section 2 — licences).
 
-> **Check:** both `.iso` files are in Downloads and their sizes are about 2.9 GB and 8 GB. A file of a few MB means the download failed.
+> **Check:** both `.iso` files are in Downloads and their sizes are about 2.7 GB and 7.7 GB. A file of a few MB means the download failed. To be sure the file is not damaged, compare `Get-FileHash <file> -Algorithm SHA256` with the checksum published on the download page.
 
 ---
 
@@ -233,6 +239,8 @@ Do this for **both** VMs, right after step 8:
 
 ![Ubuntu snapshot](evidence/06-snapshot-list.png)
 ![Windows snapshot](evidence/build/step9-windows-snapshot.png)
+
+The same from the command line ([evidence/build/step9-snapshot-list.txt](evidence/build/step9-snapshot-list.txt)): `VBoxManage snapshot lab02-windows list` → `clean-baseline`.
 
 > **Check:** each VM's Snapshots list shows the snapshot and, below it, *Current State*.
 

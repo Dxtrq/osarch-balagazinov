@@ -1,0 +1,46 @@
+﻿# Lab 6 - Windows event log: low-memory events - 2026-11-21 18:53:48
+
+PS LAB02-WINDOWS> Get-WinEvent -FilterHashtable @{LogName='System'; ProviderName='Microsoft-Windows-Resource-Exhaustion-Detector'; StartTime=[datetime]'2026-11-21T18:52:08'} -ErrorAction SilentlyContinue | Format-List TimeCreated, Id, LevelDisplayName, ProviderName, Message
+
+
+TimeCreated      : 11/21/2026 6:52:53 PM
+Id               : 2004
+LevelDisplayName : Warning
+ProviderName     : Microsoft-Windows-Resource-Exhaustion-Detector
+Message          : Windows successfully diagnosed a low virtual memory condition. The following programs consumed the most virtual memory: powershell.exe (2808) consumed 10504773632 bytes, MsMpEng.exe (3340) consumed 
+                   308940800 bytes, and msedgewebview2.exe (6796) consumed 87220224 bytes.
+
+PS LAB02-WINDOWS> Get-WinEvent -LogName 'Microsoft-Windows-Resource-Exhaustion-Detector/Operational' -MaxEvents 5 -ErrorAction SilentlyContinue | Format-List TimeCreated, Id, Message
+
+
+TimeCreated : 11/21/2026 6:52:53 PM
+Id          : 1003
+Message     : The Windows Resource Exhaustion Detector received a notification that the computer is low on virtual memory.
+
+TimeCreated : 11/21/2026 6:52:23 PM
+Id          : 1001
+Message     : The Windows Resource Exhaustion Detector started.
+
+TimeCreated : 11/21/2026 6:43:37 PM
+Id          : 1001
+Message     : The Windows Resource Exhaustion Detector started.
+
+TimeCreated : 11/21/2026 6:49:49 PM
+Id          : 1002
+Message     : The Windows Resource Exhaustion Detector stopped.
+
+TimeCreated : 11/21/2026 6:49:45 PM
+Id          : 1001
+Message     : The Windows Resource Exhaustion Detector started.
+
+PS LAB02-WINDOWS> Get-WinEvent -FilterHashtable @{LogName='System'; Id=2004} -MaxEvents 3 -ErrorAction SilentlyContinue | Format-List TimeCreated, Id, ProviderName
+
+
+TimeCreated  : 11/21/2026 6:52:53 PM
+Id           : 2004
+ProviderName : Microsoft-Windows-Resource-Exhaustion-Detector
+
+TimeCreated  : 11/1/2026 11:53:14 AM
+Id           : 2004
+ProviderName : Microsoft-Windows-Setup
+

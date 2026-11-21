@@ -1,0 +1,8 @@
+PS C:\Users\damir> VBoxManage snapshot lab01-ubuntu list --details
+   Name: clean-install (UUID: dec9c78e-e681-4e11-b1d8-47062c9b314f)
+   Description: Fresh Ubuntu Server install, nothing changed
+      Name: Snapsho 1 (UUID: 7950463b-569e-4002-8522-f92f761ef1a2) *
+
+PS C:\Users\damir> VBoxManage snapshot lab02-windows list --details
+   Name: clean-baseline (UUID: dc1691bc-345a-472e-b0a0-f5b38e65e09b) *
+   Description: Windows 11 Enterprise Evaluation + Guest Additions + ICMP-in firewall rule. Taken 2026-11-21 with the VM powered off.

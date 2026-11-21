@@ -1,0 +1,33 @@
+﻿# Lab 6 - services.exe facts on LAB02-WINDOWS - 2026-11-21 18:52:07
+
+PS LAB02-WINDOWS> Get-Process -Id 860 | Format-List Id, ProcessName, HandleCount, @{n='Threads';e={$_.Threads.Count}}, @{n='WorkingSet(KB)';e={$_.WorkingSet64/1KB}}, @{n='PrivateBytes(KB)';e={$_.PrivateMemorySize64/1KB}}, @{n='PagedMemory(KB)';e={$_.PagedMemorySize64/1KB}}, @{n='VirtualSize(MB)';e={[math]::Round($_.VirtualMemorySize64/1MB)}}, StartTime
+
+
+Id               : 860
+ProcessName      : services
+HandleCount      : 610
+Threads          : 7
+WorkingSet(KB)   : 11564
+PrivateBytes(KB) : 4452
+PagedMemory(KB)  : 4452
+VirtualSize(MB)  : 2101321
+StartTime        : 11/21/2026 6:43:16 PM
+
+PS LAB02-WINDOWS> Get-CimInstance Win32_Process -Filter 'ProcessId=860' | Format-List ProcessId, ParentProcessId, Name, HandleCount, ThreadCount, @{n='WorkingSet(KB)';e={$_.WorkingSetSize/1KB}}, @{n='PrivatePageCount(KB)';e={$_.PrivatePageCount/1KB}}
+
+
+ProcessId            : 860
+ParentProcessId      : 728
+Name                 : services.exe
+HandleCount          : 610
+ThreadCount          : 7
+WorkingSet(KB)       : 11552
+PrivatePageCount(KB) : 4440
+
+PS LAB02-WINDOWS> Get-CimInstance Win32_Process -Filter 'ProcessId=728' | Format-List ProcessId, ParentProcessId, Name    # the parent
+
+
+ProcessId       : 728
+ParentProcessId : 624
+Name            : wininit.exe
+
