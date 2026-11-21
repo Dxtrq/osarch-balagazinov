@@ -68,7 +68,7 @@ ubuntu-26.04.1-live-server-amd64.iso                                            
 
 > **Why these numbers?** The host has 16 GB RAM and 12 threads. 4 GB / 2 vCPU per guest leaves 8 GB and 8 threads for the host, so the laptop does not slow down when both VMs run. 25 GB is enough for Ubuntu Server plus development tools; "dynamic" means the file on the host only grows when the guest actually writes data.
 
-> **Check:** `lab01-ubuntu` appears in the list on the left with *Ubuntu (64-bit)*, 4096 MB.
+> **Check:** `lab01-ubuntu` appears in the list on the left; its *Details* page shows 4096 MB memory, 2 processors and a 25 GB disk on SATA port 0 (the three 2 GB disks below it on my screenshot were added later for Lab 4 — you do not need them). The OS label may say a slightly different Ubuntu version, e.g. "Ubuntu 25.04" — it is only the VirtualBox template name and changes nothing.
 
 ---
 
@@ -90,7 +90,7 @@ ubuntu-26.04.1-live-server-amd64.iso                                            
 
 > **Why?** Windows 11 refuses to install without UEFI, Secure Boot and TPM 2.0 ("This PC can't run Windows 11"). VirtualBox sets them automatically for "Windows 11 (64-bit)", but if you picked another version they are off. 64 GB is Microsoft's minimum for Windows 11.
 
-> **Check:** in *Settings → System* the three options are on; in *Settings → Storage* the disk is 64 GB.
+> **Check:** the VM's *Details* page (screenshot above) shows **TPM type 2.0**, **EFI: enabled**, **Secure Boot: enabled**, and the disk is 64 GB. (The 1 GB `lab04-extra.vdi` on my screenshot was added later for Lab 4.)
 
 ---
 
