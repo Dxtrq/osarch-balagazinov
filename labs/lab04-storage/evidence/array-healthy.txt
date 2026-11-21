@@ -1,10 +1,14 @@
-dxtra@lab01:~$ cat array-healthy.txt
-Personalities : [raid1]
-md0 : active raid1 sdc1[1] sdb1[0]
+# Lab 4 run 2 - healthy mirror before the failure - 2026-11-21 11:31:00 UTC
+
+root@lab01:# cat /proc/mdstat
+Personalities : [raid1] 
+md0 : active raid1 sdc1[3] sdd1[2]
       2093056 blocks super 1.2 [2/2] [UU]
-      bitmap: 0/1 pages [0KB], 65536KB chunk
+      bitmap: 1/1 pages [4KB], 65536KB chunk
 
 unused devices: <none>
+
+root@lab01:# mdadm --detail /dev/md0
 /dev/md0:
            Version : 1.2
      Creation Time : Sun Nov 15 12:35:55 2026
@@ -17,8 +21,8 @@ unused devices: <none>
 
      Intent Bitmap : Internal
 
-       Update Time : Sun Nov 15 12:36:06 2026
-             State : clean
+       Update Time : Sat Nov 21 11:30:57 2026
+             State : clean 
     Active Devices : 2
    Working Devices : 2
     Failed Devices : 0
@@ -28,9 +32,9 @@ Consistency Policy : bitmap
 
               Name : lab01:0  (local to host lab01)
               UUID : a7afa6e4:e2cf3bb9:0257cefd:abb6c5a4
-            Events : 18
+            Events : 66
 
     Number   Major   Minor   RaidDevice State
-       0       8       17        0      active sync   /dev/sdb1
-       1       8       33        1      active sync   /dev/sdc1
-dxtra@lab01:~$
+       3       8       33        0      active sync   /dev/sdc1
+       2       8       49        1      active sync   /dev/sdd1
+

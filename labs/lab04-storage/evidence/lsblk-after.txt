@@ -1,0 +1,28 @@
+# Lab 4 run 2 - 2026-11-21 11:31:00 UTC on lab01
+
+root@lab01:# lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT
+NAME                       SIZE TYPE  FSTYPE            MOUNTPOINT
+loop0                     66.8M loop  squashfs          /snap/core24/1643
+loop1                     66.8M loop  squashfs          /snap/core24/2124
+loop2                      1.5M loop  squashfs          /snap/hwctl/131
+loop3                      1.5M loop  squashfs          /snap/hwctl/123
+loop4                     50.1M loop  squashfs          /snap/snapd/27710
+sda                         19G disk                    
+├─sda1                       1M part                    
+├─sda2                     1.8G part  ext4              /boot
+└─sda3                    17.2G part  LVM2_member       
+  └─ubuntu--vg-ubuntu--lv   10G lvm   ext4              /
+sdb                          2G disk                    
+└─sdb1                       2G part  linux_raid_member 
+sdc                          2G disk                    
+└─sdc1                       2G part  linux_raid_member 
+  └─md0                      2G raid1 ext4              /mnt/raid
+sdd                          2G disk                    
+└─sdd1                       2G part  linux_raid_member 
+  └─md0                      2G raid1 ext4              /mnt/raid
+sr0                       1024M rom                     
+
+root@lab01:# df -h /mnt/raid
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/md0        2.0G  536K  1.9G   1% /mnt/raid
+

@@ -1,4 +1,18 @@
-dxtra@lab01:~$ md5sum /mnt/raid/hello.txt > checksum-after-failure.txt
-dxtra@lab01:~$ cat checksum-after-failure.txt
-5074fe8fb229ad77cfcafee67054e1a7  /mnt/raid/hello.txt
-dxtra@lab01:~$
+# Lab 4 run 2 - checksums on the DEGRADED array - 2026-11-21 11:31:00 UTC
+
+root@lab01:# grep md0 /proc/mdstat
+md0 : active raid1 sdc1[3]
+
+root@lab01:# sync; echo 3 > /proc/sys/vm/drop_caches    # drop page cache so files are re-read from the surviving disk
+
+root@lab01:# cat /mnt/raid/proof.txt
+Lab 4 proof - Damir Balagazinov - lab01 - 2026-11-21 11:31:00
+
+root@lab01:# sha256sum /mnt/raid/proof.txt /mnt/raid/random.bin
+50f6bbbbd4d6ded68d99bc13847ef65711ffc5a1a23f2ea7ad87ec6288757943  /mnt/raid/proof.txt
+2a6b455f77870e26d77462c83146342db2a8ee1a0801031e68143e4304ef1851  /mnt/raid/random.bin
+
+root@lab01:# sha256sum -c /home/dxtra/lab04-sha256.txt    # compare with the values taken before the failure
+/mnt/raid/proof.txt: OK
+/mnt/raid/random.bin: OK
+

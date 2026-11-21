@@ -1,0 +1,135 @@
+# Lab 4 run 2 - array found DEGRADED after VM boot - 2026-11-21 11:30:47 UTC
+
+root@lab01:# cat /proc/mdstat
+Personalities : [raid1] 
+md0 : active raid1 sdd1[2]
+      2093056 blocks super 1.2 [2/1] [_U]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+
+unused devices: <none>
+
+root@lab01:# mdadm --detail /dev/md0
+/dev/md0:
+           Version : 1.2
+     Creation Time : Sun Nov 15 12:35:55 2026
+        Raid Level : raid1
+        Array Size : 2093056 (2044.00 MiB 2143.29 MB)
+     Used Dev Size : 2093056 (2044.00 MiB 2143.29 MB)
+      Raid Devices : 2
+     Total Devices : 1
+       Persistence : Superblock is persistent
+
+     Intent Bitmap : Internal
+
+       Update Time : Sat Nov 21 11:29:10 2026
+             State : clean, degraded 
+    Active Devices : 1
+   Working Devices : 1
+    Failed Devices : 0
+     Spare Devices : 0
+
+Consistency Policy : bitmap
+
+              Name : lab01:0  (local to host lab01)
+              UUID : a7afa6e4:e2cf3bb9:0257cefd:abb6c5a4
+            Events : 44
+
+    Number   Major   Minor   RaidDevice State
+       -       0        0        0      removed
+       2       8       49        1      active sync   /dev/sdd1
+
+root@lab01:# mdadm --examine /dev/sdb1 /dev/sdc1 /dev/sdd1 2>&1 | grep -E '^/dev|Array UUID|Update Time|Events|Device Role|Array State|No md superblock'
+/dev/sdc1:
+     Array UUID : a7afa6e4:e2cf3bb9:0257cefd:abb6c5a4
+    Update Time : Sun Nov 15 12:54:55 2026
+         Events : 18
+   Device Role : Active device 1
+   Array State : AA ('A' == active, '.' == missing, 'R' == replacing)
+/dev/sdd1:
+     Array UUID : a7afa6e4:e2cf3bb9:0257cefd:abb6c5a4
+    Update Time : Sat Nov 21 11:29:10 2026
+         Events : 44
+   Device Role : Active device 1
+   Array State : .A ('A' == active, '.' == missing, 'R' == replacing)
+
+root@lab01:# journalctl -k -b --no-pager | grep -i -E 'md0|md/raid1|md: ' | head -n 20
+Nov 21 11:21:48 lab01 kernel: md: kicking non-fresh sdc1 from array!
+Nov 21 11:21:48 lab01 kernel: md/raid1:md0: active with 1 out of 2 mirrors
+Nov 21 11:21:48 lab01 kernel: md0: detected capacity change from 0 to 4186112
+Nov 21 11:21:48 lab01 kernel: md_update_sb: can't update sb for read-only array md0
+Nov 21 11:29:09 lab01 kernel: EXT4-fs (md0): recovery complete
+Nov 21 11:29:09 lab01 kernel: EXT4-fs (md0): mounted filesystem 181b9b5f-9343-44f5-8b22-d4c7a693ce43 r/w with ordered data mode. Quota mode: none.
+
+root@lab01:# ls -l /mnt/raid    # filesystem still mounted and readable on the surviving disk
+total 20
+-rw-r--r-- 1 root root    36 Nov 15 12:54 hello.txt
+drwx------ 2 root root 16384 Nov 15 12:52 lost+found
+
+root@lab01:# mdadm --zero-superblock /dev/sdc1    # stale member, wipe old RAID metadata
+
+root@lab01:# mdadm --manage /dev/md0 --add /dev/sdc1
+mdadm: added /dev/sdc1
+
+root@lab01:# sleep 2; cat /proc/mdstat    # resync in progress
+Personalities : [raid1] 
+md0 : active raid1 sdc1[3] sdd1[2]
+      2093056 blocks super 1.2 [2/1] [_U]
+      [===>.................]  recovery = 19.1% (401920/2093056) finish=0.1min speed=200960K/sec
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+
+unused devices: <none>
+
+root@lab01:# mdadm --wait /dev/md0; echo resync finished
+resync finished
+
+root@lab01:# cat /proc/mdstat
+Personalities : [raid1] 
+md0 : active raid1 sdc1[3] sdd1[2]
+      2093056 blocks super 1.2 [2/2] [UU]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+
+unused devices: <none>
+
+root@lab01:# mdadm --detail /dev/md0
+/dev/md0:
+           Version : 1.2
+     Creation Time : Sun Nov 15 12:35:55 2026
+        Raid Level : raid1
+        Array Size : 2093056 (2044.00 MiB 2143.29 MB)
+     Used Dev Size : 2093056 (2044.00 MiB 2143.29 MB)
+      Raid Devices : 2
+     Total Devices : 2
+       Persistence : Superblock is persistent
+
+     Intent Bitmap : Internal
+
+       Update Time : Sat Nov 21 11:30:57 2026
+             State : clean 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+
+Consistency Policy : bitmap
+
+              Name : lab01:0  (local to host lab01)
+              UUID : a7afa6e4:e2cf3bb9:0257cefd:abb6c5a4
+            Events : 66
+
+    Number   Major   Minor   RaidDevice State
+       3       8       33        0      active sync   /dev/sdc1
+       2       8       49        1      active sync   /dev/sdd1
+
+# Lab 4 run 2 - /dev/sdb has no partition, preparing it as the third (spare) disk - 2026-11-21 11:30:57 UTC
+
+root@lab01:# lsblk -o NAME,SIZE,TYPE,FSTYPE /dev/sdb
+NAME SIZE TYPE FSTYPE
+sdb    2G disk 
+
+root@lab01:# parted -s /dev/sdb mklabel gpt mkpart primary 1MiB 100% set 1 raid on
+
+root@lab01:# partprobe /dev/sdb; udevadm settle; lsblk -o NAME,SIZE,TYPE,FSTYPE,PARTTYPENAME /dev/sdb
+NAME   SIZE TYPE FSTYPE            PARTTYPENAME
+sdb      2G disk                   
+└─sdb1   2G part linux_raid_member Linux RAID
+

@@ -1,10 +1,31 @@
-dxtra@lab01:~$ cat array-rebuilt.txt
-Personalities : [raid1]
-md0 : active raid1 sdd1[2] sdb1[0]
-      2093056 blocks super 1.2 [2/2] [UU]
-      bitmap: 0/1 pages [0KB], 65536KB chunk
+# Lab 4 run 2 - rebuild onto /dev/sdb1 - 2026-11-21 11:31:01 UTC
+
+root@lab01:# mdadm --zero-superblock /dev/sdb1    # old member from run 1, wipe its stale RAID metadata
+
+root@lab01:# mdadm --manage /dev/md0 --add /dev/sdb1
+mdadm: added /dev/sdb1
+
+root@lab01:# sleep 2; cat /proc/mdstat    # rebuild in progress
+Personalities : [raid1] 
+md0 : active raid1 sdb1[2] sdc1[3]
+      2093056 blocks super 1.2 [2/1] [U_]
+      [===>.................]  recovery = 19.0% (399168/2093056) finish=0.1min speed=199584K/sec
+      bitmap: 1/1 pages [4KB], 65536KB chunk
 
 unused devices: <none>
+
+root@lab01:# mdadm --wait /dev/md0; echo rebuild finished
+rebuild finished
+
+root@lab01:# cat /proc/mdstat
+Personalities : [raid1] 
+md0 : active raid1 sdb1[2] sdc1[3]
+      2093056 blocks super 1.2 [2/2] [UU]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+
+unused devices: <none>
+
+root@lab01:# mdadm --detail /dev/md0
 /dev/md0:
            Version : 1.2
      Creation Time : Sun Nov 15 12:35:55 2026
@@ -17,8 +38,8 @@ unused devices: <none>
 
      Intent Bitmap : Internal
 
-       Update Time : Sun Nov 15 13:33:15 2026
-             State : clean
+       Update Time : Sat Nov 21 11:31:12 2026
+             State : clean 
     Active Devices : 2
    Working Devices : 2
     Failed Devices : 0
@@ -28,9 +49,35 @@ Consistency Policy : bitmap
 
               Name : lab01:0  (local to host lab01)
               UUID : a7afa6e4:e2cf3bb9:0257cefd:abb6c5a4
-            Events : 42
+            Events : 93
 
     Number   Major   Minor   RaidDevice State
-       0       8       17        0      active sync   /dev/sdb1
-       2       8       49        1      active sync   /dev/sdd1
-dxtra@lab01:~$
+       3       8       33        0      active sync   /dev/sdc1
+       2       8       17        1      active sync   /dev/sdb1
+
+root@lab01:# sha256sum -c /home/dxtra/lab04-sha256.txt    # data still intact after the rebuild
+/mnt/raid/proof.txt: OK
+/mnt/raid/random.bin: OK
+
+root@lab01:# lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT
+NAME                       SIZE TYPE  FSTYPE            MOUNTPOINT
+loop0                     66.8M loop  squashfs          /snap/core24/1643
+loop1                     66.8M loop  squashfs          /snap/core24/2124
+loop2                      1.5M loop  squashfs          /snap/hwctl/131
+loop3                      1.5M loop  squashfs          /snap/hwctl/123
+loop4                     50.1M loop  squashfs          /snap/snapd/27710
+sda                         19G disk                    
+├─sda1                       1M part                    
+├─sda2                     1.8G part  ext4              /boot
+└─sda3                    17.2G part  LVM2_member       
+  └─ubuntu--vg-ubuntu--lv   10G lvm   ext4              /
+sdb                          2G disk                    
+└─sdb1                       2G part  linux_raid_member 
+  └─md0                      2G raid1 ext4              /mnt/raid
+sdc                          2G disk                    
+└─sdc1                       2G part  linux_raid_member 
+  └─md0                      2G raid1 ext4              /mnt/raid
+sdd                          2G disk                    
+└─sdd1                       2G part  linux_raid_member 
+sr0                       1024M rom                     
+

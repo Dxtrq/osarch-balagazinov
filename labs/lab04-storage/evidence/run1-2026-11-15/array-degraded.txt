@@ -1,0 +1,43 @@
+sudo mdadm --manage /dev/md0 --fail /dev/sdc1
+[13092.324816] md/raid1:md0: Disk failure on sdc1, disabling device.
+[13092.324816] md/raid1:md0: Operation continuing on 1 devices.
+dxtra@lab01:~$ sudo mdadm --manage /dev/md0 --remove /dev/sdc1
+mdadm: hot removed /dev/sdc1 from /dev/md0
+dxtra@lab01:~$ cat /proc/mdstat > array-degraded.txt
+dxtra@lab01:~$ sudo mdadm --detail /dev/md0 >> array-degraded.txt
+dxtra@lab01:~$ cat array-degraded.txt
+Personalities : [raid1]
+md0 : active raid1 sdb1[0]
+      2093056 blocks super 1.2 [2/1] [U_]
+      bitmap: 0/1 pages [0KB], 65536KB chunk
+
+unused devices: <none>
+/dev/md0:
+           Version : 1.2
+     Creation Time : Sun Nov 15 12:35:55 2026
+        Raid Level : raid1
+        Array Size : 2093056 (2044.00 MiB 2143.29 MB)
+     Used Dev Size : 2093056 (2044.00 MiB 2143.29 MB)
+      Raid Devices : 2
+     Total Devices : 1
+       Persistence : Superblock is persistent
+
+     Intent Bitmap : Internal
+
+       Update Time : Sun Nov 15 12:58:16 2026
+             State : clean, degraded
+    Active Devices : 1
+   Working Devices : 1
+    Failed Devices : 0
+     Spare Devices : 0
+
+Consistency Policy : bitmap
+
+              Name : lab01:0  (local to host lab01)
+              UUID : a7afa6e4:e2cf3bb9:0257cefd:abb6c5a4
+            Events : 21
+
+    Number   Major   Minor   RaidDevice State
+       0       8       17        0      active sync   /dev/sdb1
+       -       0        0        1      removed
+dxtra@lab01:~$
