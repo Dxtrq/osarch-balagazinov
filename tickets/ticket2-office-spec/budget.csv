@@ -1,43 +1,50 @@
-role,component,model,price_kzt,source,date
-accountant,CPU,Intel Core i3-12100 OEM (4C/8T; UHD 730 iGPU),64800,https://shop.kz/offer/protsessor-intel-core-i3-12100-lga1700-oem/,2026-11-21
-accountant,Cooler,DeepCool Theta 31 PWM,5790,https://shop.kz/offer/kuler-deepcool-theta-31-pwm-lga1700/,2026-11-21
-accountant,Motherboard,MSI PRO H610M-S DDR4 II,31990,https://shop.kz/offer/materinskaya-plata-msi-pro-h610m-s-ddr4-ii-lga1700/,2026-11-21
-accountant,RAM,2x Lexar 8 GB DDR4-3200 (16 GB),81800,https://shop.kz/offer/modul-pamyati-lexar-ld4au008g-b3200gsst-ddr4-8gb/,2026-11-21
-accountant,SSD,Kingston NV3 1 TB PCIe 4.0,85990,https://shop.kz/offer/ssd-nakopitel-1-tb-kingston-nv3-m-2-pcie-4-0/,2026-11-21
-accountant,Case,PCCooler C3 B310 BK,11990,https://shop.kz/offer/korpus-pccooler-c3-b310-bk-black/,2026-11-21
-accountant,PSU,MSI MAG A500N-H 500 W,14590,https://shop.kz/offer/blok-pitaniya-atx-500-w-msi-mag-a500n-h/,2026-11-21
-accountant,OS,Windows 11 Pro 64-bit OEM (FQC-10548),102990,https://shop.kz/offer/microsoft-windows-11-professional-64-bit-dvd/,2026-11-21
-accountant,Monitor,Philips 24E1N1100A 23.8in IPS 1920x1080,42590,https://shop.kz/offer/monitor-23-8-philips-24e1n1100a-01-black-120hz/,2026-11-21
-accountant,Keyboard+mouse,Logitech MK120,8990,https://shop.kz/offer/klaviatura-logitech-mk120-black-usb-mysh/,2026-11-21
-sales,CPU,Intel Core i5-12400 OEM (6C/12T; UHD 730 iGPU),87500,https://shop.kz/offer/protsessor-intel-core-i5-12400-lga1700-oem/,2026-11-21
-sales,Cooler,DeepCool Theta 31 PWM,5790,https://shop.kz/offer/kuler-deepcool-theta-31-pwm-lga1700/,2026-11-21
-sales,Motherboard,MSI PRO H610M-S DDR4 II,31990,https://shop.kz/offer/materinskaya-plata-msi-pro-h610m-s-ddr4-ii-lga1700/,2026-11-21
-sales,RAM,2x Lexar 16 GB DDR4-3200 (32 GB),171200,https://shop.kz/offer/modul-pamyati-lexar-ld4au016g-b3200gsst-ddr4-16gb/,2026-11-21
-sales,SSD,Kingston NV3 1 TB PCIe 4.0,85990,https://shop.kz/offer/ssd-nakopitel-1-tb-kingston-nv3-m-2-pcie-4-0/,2026-11-21
-sales,Case,PCCooler C3 B310 BK,11990,https://shop.kz/offer/korpus-pccooler-c3-b310-bk-black/,2026-11-21
-sales,PSU,MSI MAG A500N-H 500 W,14590,https://shop.kz/offer/blok-pitaniya-atx-500-w-msi-mag-a500n-h/,2026-11-21
-sales,OS,Windows 11 Pro 64-bit OEM (FQC-10548),102990,https://shop.kz/offer/microsoft-windows-11-professional-64-bit-dvd/,2026-11-21
-sales,Monitor,Philips 24E1N1100A 23.8in IPS 1920x1080,42590,https://shop.kz/offer/monitor-23-8-philips-24e1n1100a-01-black-120hz/,2026-11-21
-sales,Keyboard+mouse,Logitech MK120,8990,https://shop.kz/offer/klaviatura-logitech-mk120-black-usb-mysh/,2026-11-21
-sales,Webcam,Defender G-Lens 2581 Full HD,7590,https://shop.kz/offer/web-kamera-defender-g-lens-2581-full-hd/,2026-11-21
-webdev,CPU,Intel Core i5-14400 OEM (10C/16T),90990,https://shop.kz/offer/protsessor-intel-core-i5-14400-lga1700-oem/,2026-11-21
-webdev,Cooler,DeepCool AK400,13990,https://shop.kz/offer/kuler-deepcool-ak400-lga1700/,2026-11-21
-webdev,Motherboard,ASRock B760M Pro-A/D4 (4 DIMM slots),51990,https://shop.kz/offer/materinskaya-plata-asrock-b760m-pro-a-d4-lga1700/,2026-11-21
-webdev,RAM,2x Lexar 16 GB DDR4-3200 (32 GB),171200,https://shop.kz/offer/modul-pamyati-lexar-ld4au016g-b3200gsst-ddr4-16gb/,2026-11-21
-webdev,SSD,WD Blue SN5100 1 TB PCIe 4.0,96990,https://shop.kz/offer/ssd-nakopitel-1-tb-western-digital-blue-sn5100-m-2-pcle-4-0/,2026-11-21
-webdev,Case,MSI MAG Forge M100A,15990,https://shop.kz/offer/korpus-msi-mag-forge-m100a-black/,2026-11-21
-webdev,PSU,MSI MAG A500N-H 500 W,14590,https://shop.kz/offer/blok-pitaniya-atx-500-w-msi-mag-a500n-h/,2026-11-21
-webdev,OS,Windows 11 Pro 64-bit OEM (FQC-10548),102990,https://shop.kz/offer/microsoft-windows-11-professional-64-bit-dvd/,2026-11-21
-webdev,Monitor,AOC Q27G4XF 27in Fast IPS 2560x1440,98990,https://shop.kz/offer/monitor-27-aoc-q27g4xf-black/,2026-11-21
-webdev,Keyboard+mouse,Logitech MK120,8990,https://shop.kz/offer/klaviatura-logitech-mk120-black-usb-mysh/,2026-11-21
-designer,CPU,Intel Core i7-14700 OEM (20C/28T; Quick Sync),179690,https://shop.kz/offer/protsessor-intel-core-i7-14700-lga1700-oem/,2026-11-21
-designer,Cooler,DeepCool AK400,13990,https://shop.kz/offer/kuler-deepcool-ak400-lga1700/,2026-11-21
-designer,Motherboard,ASRock B760M Pro-A/D4 (4 DIMM slots),51990,https://shop.kz/offer/materinskaya-plata-asrock-b760m-pro-a-d4-lga1700/,2026-11-21
-designer,RAM,2x Lexar 16 GB DDR4-3200 (32 GB),171200,https://shop.kz/offer/modul-pamyati-lexar-ld4au016g-b3200gsst-ddr4-16gb/,2026-11-21
-designer,SSD,WD Blue SN5100 1 TB PCIe 4.0,96990,https://shop.kz/offer/ssd-nakopitel-1-tb-western-digital-blue-sn5100-m-2-pcle-4-0/,2026-11-21
-designer,GPU,MSI GeForce RTX 5060 Shadow 2X 8 GB,305990,https://shop.kz/offer/videokarta-msi-rtx-5060-shadow-2x-8-gb-geforce-rtx-5060/,2026-11-21
-designer,Case,MSI MAG Forge M100A,15990,https://shop.kz/offer/korpus-msi-mag-forge-m100a-black/,2026-11-21
-designer,PSU,MSI MAG A650BN 650 W,24590,https://shop.kz/offer/blok-pitaniya-atx-650-w-msi-mag-a650bn/,2026-11-21
-designer,OS,Windows 11 Pro 64-bit OEM (FQC-10548),102990,https://shop.kz/offer/microsoft-windows-11-professional-64-bit-dvd/,2026-11-21
-designer,Monitor,Lenovo L27q-4A 27in IPS 2560x1440,120690,https://shop.kz/offer/monitor-27-lenovo-l27q-4a-cloud-grey/,2026-11-21
-designer,Keyboard+mouse,Logitech MK120,8990,https://shop.kz/offer/klaviatura-logitech-mk120-black-usb-mysh/,2026-11-21
+role,component,model,price_kzt,source,date,screenshot
+accountant,CPU,Intel Core i3-12100 OEM (4C/8T; UHD 730 iGPU),64800,https://shop.kz/offer/protsessor-intel-core-i3-12100-lga1700-oem/,2026-11-23,evidence/screenshots/cpu-i3-12100.png
+accountant,Cooler,DeepCool Theta 31 PWM,5790,https://shop.kz/offer/kuler-deepcool-theta-31-pwm-lga1700/,2026-11-23,evidence/screenshots/cooler-deepcool-theta-31.png
+accountant,Motherboard,MSI PRO H610M-S DDR4 II,31990,https://shop.kz/offer/materinskaya-plata-msi-pro-h610m-s-ddr4-ii-lga1700/,2026-11-23,evidence/screenshots/board-msi-pro-h610m-s-ddr4.png
+accountant,RAM,2x Lexar 8 GB DDR4-3200 (16 GB),81800,https://shop.kz/offer/modul-pamyati-lexar-ld4au008g-b3200gsst-ddr4-8gb/,2026-11-23,evidence/screenshots/ram-lexar-8gb-ddr4.png
+accountant,SSD,Kingston NV3 1 TB PCIe 4.0,85990,https://shop.kz/offer/ssd-nakopitel-1-tb-kingston-nv3-m-2-pcie-4-0/,2026-11-23,evidence/screenshots/ssd-kingston-nv3-1tb.png
+accountant,Case,PCCooler C3 B310 BK,11990,https://shop.kz/offer/korpus-pccooler-c3-b310-bk-black/,2026-11-23,evidence/screenshots/case-pccooler-c3-b310.png
+accountant,PSU,MSI MAG A500N-H 500 W,14590,https://shop.kz/offer/blok-pitaniya-atx-500-w-msi-mag-a500n-h/,2026-11-23,evidence/screenshots/psu-msi-a500n-h.png
+accountant,OS,Windows 11 Pro 64-bit OEM (FQC-10548),102990,https://shop.kz/offer/microsoft-windows-11-professional-64-bit-dvd/,2026-11-23,evidence/screenshots/os-windows11-pro.png
+accountant,Monitor,Philips 24E1N1100A 23.8in IPS 1920x1080,42590,https://shop.kz/offer/monitor-23-8-philips-24e1n1100a-01-black-120hz/,2026-11-23,evidence/screenshots/monitor-philips-24e1n1100a.png
+accountant,Keyboard+mouse,Logitech MK120,8990,https://shop.kz/offer/klaviatura-logitech-mk120-black-usb-mysh/,2026-11-23,evidence/screenshots/keyboard-mouse-logitech-mk120.png
+accountant,TOTAL,accountant build total,451520,sum of the rows above,2026-11-23,
+sales,CPU,Intel Core i5-12400 OEM (6C/12T; UHD 730 iGPU),87500,https://shop.kz/offer/protsessor-intel-core-i5-12400-lga1700-oem/,2026-11-23,evidence/screenshots/cpu-i5-12400.png
+sales,Cooler,DeepCool Theta 31 PWM,5790,https://shop.kz/offer/kuler-deepcool-theta-31-pwm-lga1700/,2026-11-23,evidence/screenshots/cooler-deepcool-theta-31.png
+sales,Motherboard,MSI PRO H610M-S DDR4 II,31990,https://shop.kz/offer/materinskaya-plata-msi-pro-h610m-s-ddr4-ii-lga1700/,2026-11-23,evidence/screenshots/board-msi-pro-h610m-s-ddr4.png
+sales,RAM,2x Lexar 16 GB DDR4-3200 (32 GB),171200,https://shop.kz/offer/modul-pamyati-lexar-ld4au016g-b3200gsst-ddr4-16gb/,2026-11-23,evidence/screenshots/ram-lexar-16gb-ddr4.png
+sales,SSD,Kingston NV3 1 TB PCIe 4.0,85990,https://shop.kz/offer/ssd-nakopitel-1-tb-kingston-nv3-m-2-pcie-4-0/,2026-11-23,evidence/screenshots/ssd-kingston-nv3-1tb.png
+sales,Case,PCCooler C3 B310 BK,11990,https://shop.kz/offer/korpus-pccooler-c3-b310-bk-black/,2026-11-23,evidence/screenshots/case-pccooler-c3-b310.png
+sales,PSU,MSI MAG A500N-H 500 W,14590,https://shop.kz/offer/blok-pitaniya-atx-500-w-msi-mag-a500n-h/,2026-11-23,evidence/screenshots/psu-msi-a500n-h.png
+sales,OS,Windows 11 Pro 64-bit OEM (FQC-10548),102990,https://shop.kz/offer/microsoft-windows-11-professional-64-bit-dvd/,2026-11-23,evidence/screenshots/os-windows11-pro.png
+sales,Monitor,Philips 24E1N1100A 23.8in IPS 1920x1080,42590,https://shop.kz/offer/monitor-23-8-philips-24e1n1100a-01-black-120hz/,2026-11-23,evidence/screenshots/monitor-philips-24e1n1100a.png
+sales,Keyboard+mouse,Logitech MK120,8990,https://shop.kz/offer/klaviatura-logitech-mk120-black-usb-mysh/,2026-11-23,evidence/screenshots/keyboard-mouse-logitech-mk120.png
+sales,Webcam,Defender G-Lens 2581 Full HD,7590,https://shop.kz/offer/web-kamera-defender-g-lens-2581-full-hd/,2026-11-23,evidence/screenshots/webcam-defender-g-lens-2581.png
+sales,TOTAL,sales build total,571210,sum of the rows above,2026-11-23,
+webdev,CPU,Intel Core i5-14400 OEM (10C/16T),90990,https://shop.kz/offer/protsessor-intel-core-i5-14400-lga1700-oem/,2026-11-23,evidence/screenshots/cpu-i5-14400.png
+webdev,Cooler,DeepCool AK400,13990,https://shop.kz/offer/kuler-deepcool-ak400-lga1700/,2026-11-23,evidence/screenshots/cooler-deepcool-ak400.png
+webdev,Motherboard,ASRock B760M Pro-A/D4 (4 DIMM slots),51990,https://shop.kz/offer/materinskaya-plata-asrock-b760m-pro-a-d4-lga1700/,2026-11-23,evidence/screenshots/board-asrock-b760m-pro-a-d4.png
+webdev,RAM,2x Lexar 16 GB DDR4-3200 (32 GB),171200,https://shop.kz/offer/modul-pamyati-lexar-ld4au016g-b3200gsst-ddr4-16gb/,2026-11-23,evidence/screenshots/ram-lexar-16gb-ddr4.png
+webdev,SSD,WD Blue SN5100 1 TB PCIe 4.0,96990,https://shop.kz/offer/ssd-nakopitel-1-tb-western-digital-blue-sn5100-m-2-pcle-4-0/,2026-11-23,evidence/screenshots/ssd-wd-sn5100-1tb.png
+webdev,Case,MSI MAG Forge M100A,15990,https://shop.kz/offer/korpus-msi-mag-forge-m100a-black/,2026-11-23,evidence/screenshots/case-msi-forge-m100a.png
+webdev,PSU,MSI MAG A500N-H 500 W,14590,https://shop.kz/offer/blok-pitaniya-atx-500-w-msi-mag-a500n-h/,2026-11-23,evidence/screenshots/psu-msi-a500n-h.png
+webdev,OS,Windows 11 Pro 64-bit OEM (FQC-10548),102990,https://shop.kz/offer/microsoft-windows-11-professional-64-bit-dvd/,2026-11-23,evidence/screenshots/os-windows11-pro.png
+webdev,Monitor,AOC Q27B36X 27in IPS 2560x1440 144 Hz (replaces AOC Q27G4XF: out of stock on 2026-11-23),86990,https://shop.kz/offer/monitor-27-aoc-q27b36x-black/,2026-11-23,evidence/screenshots/monitor-aoc-q27b36x.png
+webdev,Keyboard+mouse,Logitech MK120,8990,https://shop.kz/offer/klaviatura-logitech-mk120-black-usb-mysh/,2026-11-23,evidence/screenshots/keyboard-mouse-logitech-mk120.png
+webdev,TOTAL,webdev build total,654710,sum of the rows above,2026-11-23,
+designer,CPU,Intel Core i7-14700 OEM (20C/28T; Quick Sync),179690,https://shop.kz/offer/protsessor-intel-core-i7-14700-lga1700-oem/,2026-11-23,evidence/screenshots/cpu-i7-14700.png
+designer,Cooler,DeepCool AK400,13990,https://shop.kz/offer/kuler-deepcool-ak400-lga1700/,2026-11-23,evidence/screenshots/cooler-deepcool-ak400.png
+designer,Motherboard,ASRock B760M Pro-A/D4 (4 DIMM slots),51990,https://shop.kz/offer/materinskaya-plata-asrock-b760m-pro-a-d4-lga1700/,2026-11-23,evidence/screenshots/board-asrock-b760m-pro-a-d4.png
+designer,RAM,2x Lexar 16 GB DDR4-3200 (32 GB),171200,https://shop.kz/offer/modul-pamyati-lexar-ld4au016g-b3200gsst-ddr4-16gb/,2026-11-23,evidence/screenshots/ram-lexar-16gb-ddr4.png
+designer,SSD,WD Blue SN5100 1 TB PCIe 4.0,96990,https://shop.kz/offer/ssd-nakopitel-1-tb-western-digital-blue-sn5100-m-2-pcle-4-0/,2026-11-23,evidence/screenshots/ssd-wd-sn5100-1tb.png
+designer,GPU,Gigabyte GeForce RTX 5060 Windforce MAX OC V2 8 GB (replaces MSI RTX 5060 Shadow 2X: out of stock on 2026-11-23),324990,https://shop.kz/offer/videokarta-gigabyte-rtx-5060-windforce-max-oc-v2-8-gb-geforse-rtx-5060/,2026-11-23,evidence/screenshots/gpu-gigabyte-rtx5060-windforce-max.png
+designer,Case,MSI MAG Forge M100A,15990,https://shop.kz/offer/korpus-msi-mag-forge-m100a-black/,2026-11-23,evidence/screenshots/case-msi-forge-m100a.png
+designer,PSU,MSI MAG A650BN 650 W,24590,https://shop.kz/offer/blok-pitaniya-atx-650-w-msi-mag-a650bn/,2026-11-23,evidence/screenshots/psu-msi-a650bn.png
+designer,OS,Windows 11 Pro 64-bit OEM (FQC-10548),102990,https://shop.kz/offer/microsoft-windows-11-professional-64-bit-dvd/,2026-11-23,evidence/screenshots/os-windows11-pro.png
+designer,Monitor,Lenovo L27q-4A 27in IPS 2560x1440,120690,https://shop.kz/offer/monitor-27-lenovo-l27q-4a-cloud-grey/,2026-11-23,evidence/screenshots/monitor-lenovo-l27q-4a.png
+designer,Keyboard+mouse,Logitech MK120,8990,https://shop.kz/offer/klaviatura-logitech-mk120-black-usb-mysh/,2026-11-23,evidence/screenshots/keyboard-mouse-logitech-mk120.png
+designer,TOTAL,designer build total,1112100,sum of the rows above,2026-11-23,
+ALL,GRAND TOTAL,four builds,2789540,sum of the four TOTAL rows,2026-11-23,
+ALL,BUDGET,from the ticket,3000000,,,
+ALL,RESERVE,budget minus grand total,210460,,2026-11-23,

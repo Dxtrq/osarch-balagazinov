@@ -1,6 +1,8 @@
 # Four builds — load, bottleneck, trade-off
 
-All prices: shop.kz (Белый Ветер / White Wind, Almaty, delivers across Kazakhstan), taken **21.11.2026**, every line in [budget.csv](budget.csv), every price backed by a page snapshot in [evidence/vendor-quotes/](evidence/vendor-quotes/).
+All prices: shop.kz (Белый Ветер / White Wind, Almaty, delivers across Kazakhstan), first collected **21.11.2026** and **re-checked on 23.11.2026** with a screenshot of every product page ([evidence/screenshots/](evidence/screenshots/), URL and capture time on each image). Every line is in [budget.csv](budget.csv), which also has the per-build TOTAL rows and the GRAND TOTAL. Compatibility and power draw were checked in PCPartPicker ([evidence/pcpartpicker-links.md](evidence/pcpartpicker-links.md)).
+
+**Two parts changed between the two dates** — both went out of stock (screenshots `*-OUT-OF-STOCK.png`): the MSI RTX 5060 Shadow 2X (305,990) was replaced by the **Gigabyte RTX 5060 Windforce MAX OC V2** (324,990, same GPU), and the AOC Q27G4XF monitor (98,990) by the **AOC Q27B36X** (86,990, also 27" IPS 2560×1440, 144 Hz instead of 180 Hz — irrelevant for code). All other prices were identical on both dates.
 
 **One platform for all four:** Intel LGA1700 with **DDR4**. On 21.11.2026 memory is the most expensive part in Kazakhstan: 32 GB of DDR5 costs 387,100–446,300 KZT, 32 GB of DDR4 (2 × 16 GB Lexar) costs 171,200 KZT. Every AMD option that fits (Ryzen 8500G/8600G, Ryzen 7 7700) needs DDR5, which would eat ~220,000 KZT more per 32 GB machine. DDR4-3200 is slower than DDR5-5600 by roughly 5–10 % in memory-heavy work — a loss nobody in this office will notice, unlike a 220,000 KZT hole in the budget. A side benefit: one platform, one spare-parts shelf, and RAM/SSD/PSU are interchangeable between machines.
 
@@ -24,7 +26,7 @@ Shared by all four: **1 TB NVMe SSD** (hard requirement), **Windows 11 Pro OEM**
 | OS | Windows 11 Pro OEM | 102,990 |
 | Monitor | Philips 24E1N1100A 23.8" IPS 1080p | 42,590 |
 | Keyboard + mouse | Logitech MK120 | 8,990 |
-| **Total** | | **451,520** (budget.csv rows 2–11) |
+| **Total** | | **451,520** (budget.csv rows 2–12) |
 
 ### Build 2 — Sales manager
 **Load:** CRM in a browser with 30–40 tabs, WhatsApp Web, Excel, video calls (Zoom / Google Meet) for several hours a day, often all at once.
@@ -37,7 +39,7 @@ Shared by all four: **1 TB NVMe SSD** (hard requirement), **Windows 11 Pro OEM**
 | RAM | 2 × 16 GB DDR4-3200 Lexar | 171,200 |
 | Webcam | Defender G-Lens 2581 Full HD | 7,590 |
 | Cooler, board, SSD, case, PSU, OS, monitor, keyboard+mouse | same as Build 1 | 304,920 |
-| **Total** | | **571,210** (budget.csv rows 12–22) |
+| **Total** | | **571,210** (budget.csv rows 13–24) |
 
 ### Build 3 — Web developer
 **Load:** VS Code / JetBrains IDE, Docker with 4–6 containers (database, backend, frontend dev server, Redis), a browser with DevTools, sometimes a Linux VM; builds (`npm run build`, `docker build`) many times a day.
@@ -53,14 +55,14 @@ Shared by all four: **1 TB NVMe SSD** (hard requirement), **Windows 11 Pro OEM**
 | SSD | WD Blue SN5100 1 TB PCIe 4.0 | 96,990 |
 | Case / PSU | MSI MAG Forge M100A / MSI MAG A500N-H 500 W | 30,580 |
 | OS | Windows 11 Pro OEM | 102,990 |
-| Monitor | AOC Q27G4XF 27" Fast IPS 2560×1440 | 98,990 |
+| Monitor | AOC Q27B36X 27" IPS 2560×1440, 144 Hz | 86,990 |
 | Keyboard + mouse | Logitech MK120 | 8,990 |
-| **Total** | | **666,710** (budget.csv rows 23–32) |
+| **Total** | | **654,710** (budget.csv rows 25–35) |
 
 ### Build 4 — Designer
 **Load:** Photoshop and Illustrator with large layered files, Figma, Premiere Pro for short social-media videos (1080p, sometimes 4K), exporting and rendering.
 **Bottleneck:** GPU and memory together. Photoshop filters, Premiere playback with effects and exports all use the GPU; large PSDs and Premiere's cache fill RAM. The CPU matters for export, and Intel's Quick Sync speeds up H.264/H.265 timelines in Premiere.
-**Trade-off:** this is where most of the money goes (39 % of what is spent) and it should — the designer's machine is the only one where the hardware limits the work. Still, I took an **RTX 5060 8 GB instead of an RTX 5060 Ti 16 GB** and **32 GB instead of 64 GB** to stay in budget. 8 GB of video memory is enough for Photoshop and 1080p video, tight for 4K. The board has two free DIMM slots, so 64 GB is a later upgrade. 650 W PSU for the GPU with headroom. Monitor: 27" IPS 1440p; shop.kz does not list its sRGB coverage, so that has to be checked against Lenovo's specification before buying (see README, section 5).
+**Trade-off:** this is where most of the money goes (40 % of what is spent) and it should — the designer's machine is the only one where the hardware limits the work. Still, I took an **RTX 5060 8 GB instead of an RTX 5060 Ti 16 GB** and **32 GB instead of 64 GB** to stay in budget. 8 GB of video memory is enough for Photoshop and 1080p video, tight for 4K. The board has two free DIMM slots, so 64 GB is a later upgrade. 650 W PSU for the GPU with headroom. Monitor: 27" IPS 1440p; shop.kz does not list its sRGB coverage, so that has to be checked against Lenovo's specification before buying (see README, section 5).
 
 | Part | Model | KZT |
 |---|---|---|
@@ -69,12 +71,12 @@ Shared by all four: **1 TB NVMe SSD** (hard requirement), **Windows 11 Pro OEM**
 | Board | ASRock B760M Pro-A/D4 (4 DIMM slots) | 51,990 |
 | RAM | 2 × 16 GB DDR4-3200 Lexar | 171,200 |
 | SSD | WD Blue SN5100 1 TB PCIe 4.0 | 96,990 |
-| GPU | MSI GeForce RTX 5060 Shadow 2X 8 GB | 305,990 |
+| GPU | Gigabyte GeForce RTX 5060 Windforce MAX OC V2 8 GB | 324,990 |
 | Case / PSU | MSI MAG Forge M100A / MSI MAG A650BN 650 W | 40,580 |
 | OS | Windows 11 Pro OEM | 102,990 |
 | Monitor | Lenovo L27q-4A 27" IPS 2560×1440 | 120,690 |
 | Keyboard + mouse | Logitech MK120 | 8,990 |
-| **Total** | | **1,093,100** (budget.csv rows 33–43) |
+| **Total** | | **1,112,100** (budget.csv rows 36–47) |
 
 ---
 
@@ -83,13 +85,13 @@ Shared by all four: **1 TB NVMe SSD** (hard requirement), **Windows 11 Pro OEM**
 | Build | KZT | Share |
 |---|---:|---:|
 | Accountant | 451,520 | 16 % |
-| Sales manager | 571,210 | 21 % |
-| Web developer | 666,710 | 24 % |
-| Designer | 1,093,100 | 39 % |
-| **All four** | **2,782,540** | |
+| Sales manager | 571,210 | 20 % |
+| Web developer | 654,710 | 24 % |
+| Designer | 1,112,100 | 40 % |
+| **All four** | **2,789,540** (budget.csv row 48, GRAND TOTAL) | |
 | Budget | 3,000,000 | |
-| **Left** | **217,460** | |
+| **Left** | **210,460** (budget.csv row 50) | |
 
-The 217,460 KZT left is deliberately **not** spent on more hardware: assembly and delivery are not included in shop.kz prices, a sales headset is still missing (none in stock on 21.11.2026), and memory prices in Kazakhstan have been moving within weeks — a 7 % reserve protects the order if prices change between this quote and payment. If the reserve is not needed, the first use is +32 GB for the designer (see README, question 1).
+The 210,460 KZT left is deliberately **not** spent on more hardware: assembly and delivery are not included in shop.kz prices, a sales headset is still missing (none in stock on 21.11.2026), and memory prices in Kazakhstan have been moving within weeks — a 7 % reserve protects the order if prices change between this quote and payment — and they did: in two days two parts went out of stock and the replacements changed the total by +7,000 KZT. If the reserve is not needed, the first use is +32 GB for the designer (see README, question 1).
 
-**Compatibility check (done by hand, see evidence/pcpartpicker-links.md):** all CPUs are LGA1700 and all boards are LGA1700 with DDR4 slots; i3/i5-12400 run on H610, i5-14400/i7-14700 on B760 (H610 would limit the i7's power); the i7-14700 (65 W base, up to 219 W turbo) gets a tower cooler (AK400), not the box-style Theta 31; GPU 145 W + i7 ≈ 400 W peak → 650 W PSU; the office machines draw < 150 W on 500 W units.
+**Compatibility check:** all four builds are entered in PCPartPicker ([evidence/pcpartpicker-links.md](evidence/pcpartpicker-links.md), list links and screenshots). Web developer and designer: **no issues**. Accountant and sales: one **warning** — PCPartPicker says the MSI PRO H610M-S DDR4 II needs its latest BIOS for the i3-12100 / i5-12400, so the BIOS version is checked (and updated by the shop if needed) before assembly. Estimated power: 183 W / 226 W / 257 W on 500 W units, **473 W on the designer's 650 W** unit (73 % at full load) — my earlier hand estimate of ~400 W for the designer was too low. By hand I also checked what PCPartPicker does not: the i7-14700 gets a tower cooler (AK400), not the small Theta 31, because it can draw up to 219 W in turbo.
