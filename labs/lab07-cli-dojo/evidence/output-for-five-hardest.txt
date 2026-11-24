@@ -1,0 +1,259 @@
+Lab 7 CLI dojo - five hardest, re-run in an Administrator Command Prompt on LAB02-WINDOWS - Wed 11/25/2026  0:37:39.33 
+
+===== 13 + 14: which PID listens on port 135, and which program is it =====
+C:\dojo> netstat -ano | findstr :135
+  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       740
+  TCP    [::]:135               [::]:0                 LISTENING       740
+C:\dojo> tasklist /fi "PID eq 740"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+svchost.exe                    740 Services                   0     16,876 K
+
+===== 16: every svchost.exe with the services inside it =====
+C:\dojo> tasklist /svc /fi "imagename eq svchost.exe"
+
+Image Name                     PID Services                                    
+========================= ======== ============================================
+svchost.exe                   1000 BrokerInfrastructure, DcomLaunch, PlugPlay, 
+                                   Power, SystemEventsBroker                   
+svchost.exe                    740 RpcEptMapper, RpcSs                         
+svchost.exe                    860 LSM                                         
+svchost.exe                   1172 gpsvc                                       
+svchost.exe                   1188 BDESVC                                      
+svchost.exe                   1208 CoreMessagingRegistrar                      
+svchost.exe                   1248 lmhosts                                     
+svchost.exe                   1304 NcbService                                  
+svchost.exe                   1316 TimeBrokerSvc                               
+svchost.exe                   1364 Schedule                                    
+svchost.exe                   1440 DispBrokerDesktopSvc                        
+svchost.exe                   1460 CryptSvc                                    
+svchost.exe                   1472 ProfSvc                                     
+svchost.exe                   1648 UserManager                                 
+svchost.exe                   1664 nsi                                         
+svchost.exe                   1672 AppIDSvc                                    
+svchost.exe                   1748 netprofm                                    
+svchost.exe                   1988 Dnscache                                    
+svchost.exe                   1288 EventLog                                    
+svchost.exe                   2088 EventSystem                                 
+svchost.exe                   2104 SysMain                                     
+svchost.exe                   2112 Dhcp                                        
+svchost.exe                   2140 Themes                                      
+svchost.exe                   2256 SENS                                        
+svchost.exe                   2308 AudioEndpointBuilder                        
+svchost.exe                   2320 FontCache                                   
+svchost.exe                   2360 WinHttpAutoProxySvc                         
+svchost.exe                   2444 Audiosrv                                    
+svchost.exe                   2500 TextInputManagementService                  
+svchost.exe                   2572 Wcmsvc                                      
+svchost.exe                   2584 DusmSvc                                     
+svchost.exe                   2604 StateRepository                             
+svchost.exe                   2660 ShellHWDetection                            
+svchost.exe                   2824 BFE, mpssvc                                 
+svchost.exe                   2860 LanmanWorkstation                           
+svchost.exe                   2972 DiagTrack                                   
+svchost.exe                   2984 DPS                                         
+svchost.exe                   3016 iphlpsvc                                    
+svchost.exe                   3048 LanmanServer                                
+svchost.exe                   2408 Winmgmt                                     
+svchost.exe                   2656 TrkWks                                      
+svchost.exe                   3100 WpnService                                  
+svchost.exe                   3456 camsvc                                      
+svchost.exe                   3676 WSAIFabricSvc                               
+svchost.exe                   3544 RmSvc                                       
+svchost.exe                   4040 webthreatdefsvc                             
+svchost.exe                   4236 CDPUserSvc_49811                            
+svchost.exe                   4300 webthreatdefusersvc_49811                   
+svchost.exe                   4336 WpnUserService_49811                        
+svchost.exe                   4380 TokenBroker                                 
+svchost.exe                   4728 CDPSvc                                      
+svchost.exe                   4980 Appinfo                                     
+svchost.exe                   4844 cbdhsvc_49811                               
+svchost.exe                   5128 WdiSystemHost                               
+svchost.exe                   5220 PcaSvc                                      
+svchost.exe                   5808 UdkUserSvc_49811                            
+svchost.exe                   5684 LicenseManager                              
+svchost.exe                   7904 wuauserv                                    
+svchost.exe                   6308 DoSvc                                       
+svchost.exe                   8424 SSDPSRV                                     
+svchost.exe                   2524 StorSvc                                     
+svchost.exe                   6296 InventorySvc                                
+svchost.exe                   8308 UsoSvc                                      
+svchost.exe                   9092 W32Time                                     
+svchost.exe                   1204 whesvc                                      
+svchost.exe                   8160 wscsvc                                      
+svchost.exe                   2096 InstallService                              
+svchost.exe                   4632 wuqisvc                                     
+svchost.exe                   6848 lfsvc                                       
+svchost.exe                   4144 AppXSvc                                     
+svchost.exe                   3220 DisplayEnhancementService                   
+
+===== 17 (read the help: forfiles /?): files under C:\Windows\Logs changed in the last 7 days =====
+First guess /D -7 selects files OLDER than 7 days - number of files it returns:
+89
+C:\dojo> forfiles /p C:\Windows\Logs /s /d +11/18/2026 /c "cmd /c echo @fdate @ftime @path"
+
+11/21/2026 7:04:41 PM "C:\Windows\Logs\CBS"
+11/25/2026 12:23:53 AM "C:\Windows\Logs\IsolationSession.log"
+11/25/2026 12:23:24 AM "C:\Windows\Logs\MeasuredBoot"
+11/18/2026 11:34:33 PM "C:\Windows\Logs\MoSetup"
+11/21/2026 4:22:10 PM "C:\Windows\Logs\SetupCleanupTask"
+11/18/2026 11:40:08 PM "C:\Windows\Logs\SetupRecoveryDataTask"
+11/25/2026 12:23:42 AM "C:\Windows\Logs\SIH"
+11/25/2026 12:25:24 AM "C:\Windows\Logs\StorGroupPolicy.log"
+11/25/2026 12:36:45 AM "C:\Windows\Logs\waasmedic"
+11/25/2026 12:35:09 AM "C:\Windows\Logs\WindowsUpdate"
+11/25/2026 12:32:51 AM "C:\Windows\Logs\CBS\CBS.log"
+11/21/2026 5:02:49 PM "C:\Windows\Logs\CBS\CbsPersist_20261121122536.log"
+11/21/2026 6:46:31 PM "C:\Windows\Logs\CBS\CbsPersist_20261121140441.log"
+11/21/2026 7:04:33 PM "C:\Windows\Logs\DISM\dism.log"
+11/18/2026 11:14:40 PM "C:\Windows\Logs\MeasuredBoot\0000000009-0000000000.json"
+11/18/2026 11:13:56 PM "C:\Windows\Logs\MeasuredBoot\0000000009-0000000000.log"
+11/18/2026 11:19:22 PM "C:\Windows\Logs\MeasuredBoot\0000000010-0000000000.json"
+11/18/2026 11:18:34 PM "C:\Windows\Logs\MeasuredBoot\0000000010-0000000000.log"
+11/21/2026 4:22:02 PM "C:\Windows\Logs\MeasuredBoot\0000000011-0000000000.json"
+11/21/2026 4:21:21 PM "C:\Windows\Logs\MeasuredBoot\0000000011-0000000000.log"
+11/21/2026 6:42:25 PM "C:\Windows\Logs\MeasuredBoot\0000000012-0000000000.json"
+11/21/2026 6:41:59 PM "C:\Windows\Logs\MeasuredBoot\0000000012-0000000000.log"
+11/21/2026 6:44:02 PM "C:\Windows\Logs\MeasuredBoot\0000000013-0000000000.json"
+11/21/2026 6:43:03 PM "C:\Windows\Logs\MeasuredBoot\0000000013-0000000000.log"
+11/25/2026 12:23:24 AM "C:\Windows\Logs\MeasuredBoot\0000000014-0000000000.json"
+11/25/2026 12:23:03 AM "C:\Windows\Logs\MeasuredBoot\0000000014-0000000000.log"
+11/21/2026 5:31:42 PM "C:\Windows\Logs\MoSetup\ActionList.xml"
+11/21/2026 5:28:40 PM "C:\Windows\Logs\MoSetup\DeviceInventory.xml"
+11/21/2026 5:36:18 PM "C:\Windows\Logs\MoSetup\UpdateAgent.log"
+11/25/2026 12:37:13 AM "C:\Windows\Logs\NetSetup\service.0.etl"
+11/21/2026 5:02:47 PM "C:\Windows\Logs\PITR\PITR.log"
+11/21/2026 5:02:47 PM "C:\Windows\Logs\PITR\PointInTimeRestore.etl"
+11/21/2026 4:22:20 PM "C:\Windows\Logs\SetupCleanupTask\diagerr.xml"
+11/21/2026 4:22:20 PM "C:\Windows\Logs\SetupCleanupTask\diagwrn.xml"
+11/21/2026 4:22:20 PM "C:\Windows\Logs\SetupCleanupTask\setupact.log"
+11/21/2026 4:22:10 PM "C:\Windows\Logs\SetupCleanupTask\setuperr.log"
+11/18/2026 11:40:09 PM "C:\Windows\Logs\SetupRecoveryDataTask\diagerr.xml"
+11/18/2026 11:40:09 PM "C:\Windows\Logs\SetupRecoveryDataTask\diagwrn.xml"
+11/18/2026 11:40:09 PM "C:\Windows\Logs\SetupRecoveryDataTask\setupact.log"
+11/18/2026 11:40:08 PM "C:\Windows\Logs\SetupRecoveryDataTask\setuperr.log"
+11/18/2026 11:14:47 PM "C:\Windows\Logs\SIH\SIH.20261118.231440.791.1.etl"
+11/21/2026 4:22:09 PM "C:\Windows\Logs\SIH\SIH.20261121.162203.759.1.etl"
+11/25/2026 12:23:46 AM "C:\Windows\Logs\SIH\SIH.20261125.002342.766.1.etl"
+11/18/2026 11:16:05 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_181416_157.etl"
+11/18/2026 11:21:57 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_182104_193.etl"
+11/18/2026 11:24:10 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_182310_348.etl"
+11/18/2026 11:27:28 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_182604_236.etl"
+11/18/2026 11:32:03 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_183100_606.etl"
+11/18/2026 11:35:08 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_183355_437.etl"
+11/18/2026 11:37:52 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_183654_573.etl"
+11/18/2026 11:39:12 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_183805_200.etl"
+11/18/2026 11:40:12 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_183917_380.etl"
+11/18/2026 11:41:40 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_184033_500.etl"
+11/18/2026 11:43:35 PM "C:\Windows\Logs\waasmedic\waasmedic.20261118_184225_327.etl"
+11/21/2026 4:23:26 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_112139_186.etl"
+11/21/2026 4:27:12 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_112551_480.etl"
+11/21/2026 4:33:18 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_113205_088.etl"
+11/21/2026 4:37:56 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_113644_904.etl"
+11/21/2026 4:38:41 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_113802_187.etl"
+11/21/2026 4:41:00 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_113943_529.etl"
+11/21/2026 4:48:10 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_114710_435.etl"
+11/21/2026 4:51:49 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_115049_736.etl"
+11/21/2026 5:27:22 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_122614_782.etl"
+11/21/2026 5:36:16 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_123616_827.etl"
+11/21/2026 6:47:52 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_134622_091.etl"
+11/21/2026 7:00:20 PM "C:\Windows\Logs\waasmedic\waasmedic.20261121_135739_205.etl"
+11/25/2026 12:24:40 AM "C:\Windows\Logs\waasmedic\waasmedic.20261124_192342_854.etl"
+11/25/2026 12:26:32 AM "C:\Windows\Logs\waasmedic\waasmedic.20261124_192518_019.etl"
+11/25/2026 12:30:06 AM "C:\Windows\Logs\waasmedic\waasmedic.20261124_192859_551.etl"
+11/25/2026 12:36:26 AM "C:\Windows\Logs\waasmedic\waasmedic.20261124_193523_905.etl"
+11/25/2026 12:37:45 AM "C:\Windows\Logs\waasmedic\waasmedic.20261124_193645_839.etl"
+11/18/2026 11:14:44 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231444.359.1.etl"
+11/18/2026 11:33:58 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.1.etl"
+11/18/2026 11:38:46 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.10.etl"
+11/18/2026 11:39:15 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.11.etl"
+11/18/2026 11:41:18 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.12.etl"
+11/18/2026 11:41:18 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.13.etl"
+11/18/2026 11:35:06 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.2.etl"
+11/18/2026 11:36:21 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.3.etl"
+11/18/2026 11:37:09 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.4.etl"
+11/18/2026 11:37:24 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.5.etl"
+11/18/2026 11:37:34 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.6.etl"
+11/18/2026 11:37:47 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.7.etl"
+11/18/2026 11:38:33 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.8.etl"
+11/18/2026 11:38:39 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261118.231921.386.9.etl"
+11/21/2026 4:31:28 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.1.etl"
+11/21/2026 4:39:49 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.10.etl"
+11/21/2026 4:51:30 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.11.etl"
+11/21/2026 5:11:35 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.12.etl"
+11/21/2026 4:35:03 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.2.etl"
+11/21/2026 4:37:38 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.3.etl"
+11/21/2026 4:38:05 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.4.etl"
+11/21/2026 4:38:11 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.5.etl"
+11/21/2026 4:38:30 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.6.etl"
+11/21/2026 4:38:59 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.7.etl"
+11/21/2026 4:39:05 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.8.etl"
+11/21/2026 4:39:10 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.162207.096.9.etl"
+11/21/2026 5:28:28 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.172614.838.1.etl"
+11/21/2026 5:30:01 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.172614.838.2.etl"
+11/21/2026 5:33:28 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.172614.838.3.etl"
+11/21/2026 5:36:29 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.172614.838.4.etl"
+11/21/2026 5:46:54 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.172614.838.5.etl"
+11/21/2026 7:05:32 PM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261121.185846.260.1.etl"
+11/25/2026 12:35:53 AM "C:\Windows\Logs\WindowsUpdate\WindowsUpdate.20261125.002344.397.1.etl"
+11/21/2026 5:28:29 PM "C:\Windows\Logs\WinREAgent\diagerr.xml"
+11/21/2026 5:31:42 PM "C:\Windows\Logs\WinREAgent\diagwrn.xml"
+11/21/2026 5:28:29 PM "C:\Windows\Logs\WinREAgent\setupact.log"
+
+===== 19 (read the help: robocopy /?): mirror C:\dojo to C:\dojo-copy, skip *.txt, write a log =====
+C:\dojo> robocopy C:\dojo C:\dojo-copy /MIR /XF *.txt *.log /R:1 /W:1 /LOG:C:\dojo\robocopy.log
+robocopy exit code 0 (0 = nothing to copy, 1 = files copied)
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Wednesday, November 25, 2026 12:38:27 AM
+   Source : C:\dojo\
+     Dest : C:\dojo-copy\
+
+    Files : *.*
+	    
+Exc Files : *.txt
+	    *.log
+	    
+  Options : *.* /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /R:1 /W:1 
+
+------------------------------------------------------------------------------
+
+	                   2	C:\dojo\
+	                   0	C:\dojo\a\
+	                   0	C:\dojo\a\b\
+	                   0	C:\dojo\a\b\c\
+	                   1	C:\dojo\evidence\
+	                   0	C:\dojo\out\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         6         0         6         0         0         0
+   Files :         3         0         3         0         0         0
+   Bytes :    15.6 k         0    15.6 k         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Wednesday, November 25, 2026 12:38:27 AM
+
+C:\dojo> dir /s /b C:\dojo-copy
+C:\dojo-copy\a
+C:\dojo-copy\evidence
+C:\dojo-copy\out
+C:\dojo-copy\a\b
+C:\dojo-copy\a\b\c
+
+===== 20: check protected system files without repairing (Administrator) =====
+C:\dojo> sfc /verifyonly
+C:\dojo> sfc /verifyonly > C:\dojo\sfc-raw.txt   (sfc writes UTF-16; "more <" turns it into plain text)
+
+Beginning system scan.  This process will take some time.
+
+Beginning verification phase of system scan.
+Verification 0% complete.Verification 1% complete.Verification 1% complete.Verification 2% complete.Verification 2% complete.Verification 3% complete.Verification 4% complete.Verification 4% complete.Verification 5% complete.Verification 5% complete.Verification 6% complete.Verification 7% complete.Verification 7% complete.Verification 8% complete.Verification 8% complete.Verification 9% complete.Verification 9% complete.Verification 10% complete.Verification 11% complete.Verification 11% complete.Verification 12% complete.Verification 12% complete.Verification 13% complete.Verification 14% complete.Verification 14% complete.Verification 15% complete.Verification 15% complete.Verification 16% complete.Verification 17% complete.Verification 17% complete.Verification 18% complete.Verification 18% complete.Verification 19% complete.Verification 19% complete.Verification 20% complete.Verification 21% complete.Verification 21% complete.Verification 22% complete.Verification 22% complete.Verification 23% complete.Verification 24% complete.Verification 24% complete.Verification 25% complete.Verification 25% complete.Verification 26% complete.Verification 27% complete.Verification 27% complete.Verification 28% complete.Verification 28% complete.Verification 29% complete.Verification 29% complete.Verification 30% complete.Verification 31% complete.Verification 31% complete.Verification 32% complete.Verification 32% complete.Verification 33% complete.Verification 34% complete.Verification 34% complete.Verification 35% complete.Verification 35% complete.Verification 36% complete.Verification 37% complete.Verification 37% complete.Verification 38% complete.Verification 38% complete.Verification 39% complete.Verification 39% complete.Verification 40% complete.Verification 41% complete.Verification 41% complete.Verification 42% complete.Verification 42% complete.Verification 43% complete.Verification 44% complete.Verification 44% complete.Verification 45% complete.Verification 45% complete.Verification 46% complete.Verification 47% complete.Verification 47% complete.Verification 48% complete.Verification 48% complete.Verification 49% complete.Verification 49% complete.Verification 50% complete.Verification 51% complete.Verification 51% complete.Verification 52% complete.Verification 52% complete.Verification 53% complete.Verification 54% complete.Verification 54% complete.Verification 55% complete.Verification 55% complete.Verification 56% complete.Verification 57% complete.Verification 57% complete.Verification 58% complete.Verification 58% complete.Verification 59% complete.Verification 59% complete.Verification 60% complete.Verification 61% complete.Verification 61% complete.Verification 62% complete.Verification 62% complete.Verification 63% complete.Verification 64% complete.Verification 64% complete.Verification 65% complete.Verification 65% complete.Verification 66% complete.Verification 67% complete.Verification 67% complete.Verification 68% complete.Verification 68% complete.Verification 69% complete.Verification 69% complete.Verification 70% complete.Verification 71% complete.Verification 71% complete.Verification 72% complete.Verification 72% complete.Verification 73% complete.Verification 74% complete.Verification 74% complete.Verification 75% complete.Verification 75% complete.Verification 76% complete.Verification 77% complete.Verification 77% complete.Verification 78% complete.Verification 78% complete.Verification 79% complete.Verification 79% complete.Verification 80% complete.Verification 81% complete.Verification 81% complete.Verification 82% complete.Verification 82% complete.Verification 83% complete.Verification 84% complete.Verification 84% complete.Verification 85% complete.Verification 85% complete.Verification 86% complete.Verification 87% complete.Verification 87% complete.Verification 88% complete.Verification 88% complete.Verification 89% complete.Verification 89% complete.Verification 90% complete.Verification 91% complete.Verification 91% complete.Verification 92% complete.Verification 92% complete.Verification 93% complete.Verification 94% complete.Verification 94% complete.Verification 95% complete.Verification 95% complete.Verification 96% complete.Verification 97% complete.Verification 97% complete.Verification 98% complete.Verification 98% complete.Verification 99% complete.Verification 99% complete.Verification 100% complete.
+
+Windows Resource Protection did not find any integrity violations.
+
+Finished: Wed 11/25/2026  0:43:03.83

@@ -1,0 +1,27 @@
+cd /d C:\dojo & whoami /groups | find "S-1-16-12288"
+systeminfo | findstr /c:"System Boot Time"
+time /t
+time /t & sfc /verifyonly & echo exit code %errorlevel% & time /t
+cls
+set F=C:\dojo\evidence\output-for-five-hardest.txt
+echo Lab 7 CLI dojo - five hardest, re-run in an Administrator Command Prompt on %COMPUTERNAME% - %DATE% %TIME% > %F%
+echo.>> %F%& echo ===== 13 + 14: which PID listens on port 135, and which program is it =====>> %F%
+echo C:\dojo^> netstat -ano ^| findstr :135>> %F%& netstat -ano | findstr :135 >> %F%
+echo C:\dojo^> tasklist /fi "PID eq 740">> %F%& tasklist /fi "PID eq 740" >> %F%
+echo.>> %F%& echo ===== 16: every svchost.exe with the services inside it =====>> %F%
+echo C:\dojo^> tasklist /svc /fi "imagename eq svchost.exe">> %F%& tasklist /svc /fi "imagename eq svchost.exe" >> %F%
+echo.>> %F%& echo ===== 17 (read the help: forfiles /?): files under C:\Windows\Logs changed in the last 7 days =====>> %F%
+echo First guess /D -7 selects files OLDER than 7 days - number of files it returns:>> %F%& forfiles /p C:\Windows\Logs /s /d -7 /c "cmd /c echo @path" 2>nul | find /c /v "" >> %F%
+echo C:\dojo^> forfiles /p C:\Windows\Logs /s /d +11/18/2026 /c "cmd /c echo @fdate @ftime @path">> %F%& forfiles /p C:\Windows\Logs /s /d +11/18/2026 /c "cmd /c echo @fdate @ftime @path" >> %F%
+echo.>> %F%& echo ===== 19 (read the help: robocopy /?): mirror C:\dojo to C:\dojo-copy, skip *.txt, write a log =====>> %F%
+echo C:\dojo^> robocopy C:\dojo C:\dojo-copy /MIR /XF *.txt *.log /R:1 /W:1 /LOG:C:\dojo\robocopy.log>> %F%& robocopy C:\dojo C:\dojo-copy /MIR /XF *.txt *.log /R:1 /W:1 /LOG:C:\dojo\robocopy.log >nul & echo robocopy exit code %errorlevel% (0 = nothing to copy, 1 = files copied)>> %F%& type C:\dojo\robocopy.log >> %F%
+echo C:\dojo^> dir /s /b C:\dojo-copy>> %F%& dir /s /b C:\dojo-copy >> %F%
+echo.>> %F%& echo ===== 20: check protected system files without repairing (Administrator) =====>> %F%
+echo C:\dojo^> sfc /verifyonly>> %F%& time /t
+sfc /verifyonly > C:\dojo\sfc-raw.txt 2>&1 & echo done
+copy /y C:\dojo\sfc-raw.txt \\VBoxSvr\lab07\sfc-raw.tmp & copy /y %F% \\VBoxSvr\lab07\five.tmp
+find /v "" C:\dojo\sfc-raw.txt > \\VBoxSvr\lab07\t-find.tmp & more < C:\dojo\sfc-raw.txt > \\VBoxSvr\lab07\t-more.tmp & type C:\dojo\sfc-raw.txt > \\VBoxSvr\lab07\t-type.tmp
+cls
+echo C:\dojo^> sfc /verifyonly ^> C:\dojo\sfc-raw.txt   (sfc writes UTF-16; "more <" turns it into plain text)>> %F%& more < C:\dojo\sfc-raw.txt >> %F%
+echo.>> %F%& echo Finished: %DATE% %TIME%>> %F%& time /t
+doskey /history > C:\dojo\evidence\history-admin-window.txt
