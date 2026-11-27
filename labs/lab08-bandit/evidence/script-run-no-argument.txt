@@ -1,0 +1,36 @@
+# bandit.sh refusing bad input - Windows host, Git Bash (5.3.15(2)-release), 2026-11-27 15:38:12
+
+$ ./scripts/bandit.sh
+Error: expected exactly one argument (the level number), got 0.
+Usage: bandit.sh LEVEL
+  LEVEL  a whole number from 0 to 34, e.g. bandit.sh 5
+(exit status: 1)
+
+$ ./scripts/bandit.sh five
+Error: 'five' is not a level number - use digits only, e.g. 5.
+Usage: bandit.sh LEVEL
+  LEVEL  a whole number from 0 to 34, e.g. bandit.sh 5
+(exit status: 2)
+
+$ ./scripts/bandit.sh -3
+Error: '-3' is not a level number - use digits only, e.g. 5.
+Usage: bandit.sh LEVEL
+  LEVEL  a whole number from 0 to 34, e.g. bandit.sh 5
+(exit status: 2)
+
+$ ./scripts/bandit.sh 5 6
+Error: expected exactly one argument (the level number), got 2.
+Usage: bandit.sh LEVEL
+  LEVEL  a whole number from 0 to 34, e.g. bandit.sh 5
+(exit status: 1)
+
+$ ./scripts/bandit.sh 99
+Error: level 99 does not exist - Bandit has levels 0 to 34.
+Usage: bandit.sh LEVEL
+  LEVEL  a whole number from 0 to 34, e.g. bandit.sh 5
+(exit status: 2)
+
+$ ls -l scripts/bandit.sh    # executable bit set (chmod +x)
+-rwxr-xr-x 1 damir 197609 1286 Nov 27 15:38 scripts/bandit.sh
+(exit status: 0)
+

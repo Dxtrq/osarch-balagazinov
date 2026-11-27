@@ -1,0 +1,37 @@
+# bandit.sh run against level 5 - Windows host, Git Bash, 2026-11-27. Copied from the terminal.
+# The password was pasted at the ssh prompt; ssh does not echo it, so it is not in this file.
+# The first paste was rejected ("Permission denied"), the second one was accepted.
+
+PS C:\Users\damir\osarch-balagazinov> & "C:\Program Files\Git\bin\bash.exe" labs/lab08-bandit/scripts/bandit.sh 5
+Connecting to bandit5@bandit.labs.overthewire.org on port 2220 ...
+                         _                     _ _ _
+                        | |__   __ _ _ __   __| (_) |_
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+
+
+                      This is an OverTheWire game server.
+            More information on http://www.overthewire.org/wargames
+
+backend: gibson-1
+bandit5@bandit.labs.overthewire.org's password:
+Permission denied, please try again.
+bandit5@bandit.labs.overthewire.org's password:
+
+[... OverTheWire welcome banner and rules (about 70 lines) omitted ...]
+
+  Enjoy your stay!
+
+bandit5@bandit:~$ ls -la
+total 24
+drwxr-xr-x   3 root root    4096 Oct 25 13:37 .
+drwxr-xr-x 150 root root    4096 Oct 25 13:40 ..
+-rw-r--r--   1 root root     220 Feb 13  2026 .bash_logout
+-rw-r--r--   1 root root    3851 Oct 25 13:21 .bashrc
+-rw-r--r--   1 root root     807 Feb 13  2026 .profile
+drwxr-x---  22 root bandit5 4096 Oct 25 13:37 inhere
+bandit5@bandit:~$ exit
+logout
+Connection to bandit.labs.overthewire.org closed.
+PS C:\Users\damir\osarch-balagazinov>

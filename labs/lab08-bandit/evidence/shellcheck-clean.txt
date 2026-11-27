@@ -1,0 +1,19 @@
+# ShellCheck on bandit.sh - Windows host, Git Bash, 2026-11-27 15:38:00.
+# Installed with: winget install koalaman.shellcheck
+
+$ shellcheck --version
+ShellCheck - shell script analysis tool
+version: 0.11.0
+license: GNU General Public License, version 3
+website: https://www.shellcheck.net
+(exit status: 0 - 0 = no findings)
+
+# 1st pass, default checks: no findings. With all optional checks (-o all) it reported 3 x SC2250
+# (style: put braces around variable references) on lines 29, 35 and 44. Fixed: $level -> ${level}, $PORT -> ${PORT}.
+
+$ shellcheck scripts/bandit.sh
+(exit status: 0 - 0 = no findings)
+
+$ shellcheck -o all scripts/bandit.sh
+(exit status: 0 - 0 = no findings)
+

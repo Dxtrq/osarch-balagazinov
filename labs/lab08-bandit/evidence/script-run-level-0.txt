@@ -1,0 +1,23 @@
+# Second run of bandit.sh, against level 0 - Windows host, Git Bash, 2026-11-27. Copied from the terminal.
+# The script built the right user name (bandit0) and reached the server's password prompt for that level;
+# no password was typed: Ctrl+C was sent at the prompt, ssh counted it as an empty (wrong) password,
+# asked once more and then gave up, returning to PowerShell. Together with script-run-level-5.txt this shows the same
+# script connecting to two different levels purely from its argument.
+
+PS C:\Users\damir\osarch-balagazinov> & "C:\Program Files\Git\bin\bash.exe" labs/lab08-bandit/scripts/bandit.sh 0
+Connecting to bandit0@bandit.labs.overthewire.org on port 2220 ...
+                         _                     _ _ _
+                        | |__   __ _ _ __   __| (_) |_
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+
+
+                      This is an OverTheWire game server.
+            More information on http://www.overthewire.org/wargames
+
+backend: gibson-1
+bandit0@bandit.labs.overthewire.org's password:
+Permission denied, please try again.
+bandit0@bandit.labs.overthewire.org's password:
+PS C:\Users\damir\osarch-balagazinov>
